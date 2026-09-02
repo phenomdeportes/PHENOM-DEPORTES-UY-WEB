@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phenom | Equipamiento de Alto Rendimiento</title>
+    <!-- Tailwind CSS para un diseño limpio, moderno y sin código basura -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400,600,800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b0b0b; color: #f3f4f6; }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500 selection:text-black">
+
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="border-b border-neutral-800 sticky top-0 bg-black/80 backdrop-blur-md z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="text-2xl font-extrabold tracking-wider text-white">PHENOM<span class="text-amber-500">.</span></div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleAdminPanel()" class="text-xs uppercase tracking-widest px-3 py-1.5 border border-neutral-700 hover:border-amber-500 text-neutral-400 hover:text-white transition rounded">⚙️ Modo Admin</button>
+                <a href="https://wa.me/598XXXXXXXX" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-5 py-2.5 rounded text-sm transition">Pedir por WhatsApp</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS (Dinámica) -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-12 text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight mb-3">EQUIPAMIENTO DE COMPETENCIA</h1>
+            <p class="text-neutral-400 max-w-xl mx-auto">Diseñado para soportar el castigo más duro. Stock disponible en Montevideo para entrega inmediata.</p>
+        </div>
+
+        <!-- Contenedor donde se inyectan los productos -->
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Los productos se cargan automáticamente desde el script o admin -->
+        </div>
+    </main>
+
+    <!-- PANEL DE EDICIÓN OCULTO (ADMIN DRAWER) -->
+    <div id="admin-panel" class="fixed inset-y-0 right-0 w-96 bg-neutral-900 border-l border-neutral-800 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="flex justify-between items-center mb-6 border-b border-neutral-800 pb-4">
+            <h2 class="font-bold text-lg text-amber-500">Panel de Control Web</h2>
+            <button onclick="toggleAdminPanel()" class="text-neutral-400 hover:text-white text-xl">✕</button>
+        </div>
+        
+        <form id="add-product-form" onsubmit="handleNewProduct(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs uppercase text-neutral-400 mb-1">Nombre del Producto</label>
+                <input type="text" id="p-name" required class="w-full bg-neutral-800 border border-neutral-700 rounded p-2 text-white text-sm focus:border-amber-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-xs uppercase text-neutral-400 mb-1">Precio (UYU)</label>
+                <input type="text" id="p-price" required class="w-full bg-neutral-800 border border-neutral-700 rounded p-2 text-white text-sm focus:border-amber-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-xs uppercase text-neutral-400 mb-1">URL de la Imagen</label>
+                <input type="url" id="p-img" required class="w-full bg-neutral-800 border border-neutral-700 rounded p-2 text-white text-sm focus:border-amber-500 outline-none" placeholder="https://...">
+            </div>
+            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-2.5 rounded text-sm transition">Agregar Producto</button>
+        </form>
+        <div class="mt-8 border-t border-neutral-800 pt-6">
+            <button onclick="resetProducts()" class="w-full border border-red-500/50 hover:bg-red-500/10 text-red-400 py-2 rounded text-xs transition">Restaurar Productos Base</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE GESTIÓN DINÁMICA -->
+    <script>
+        // Base de datos local inicial (Productos de Phenom / Relojes)
+        let products = JSON.parse(localStorage.getItem('phenom_products')) || [
+            { name: "Guantes Phenom Pro (Blanco/Dorado)", price: "$2.090 UYU", img: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=600&q=80" },
+            { name: "Tibiales Profesionales Sparring", price: "$2.150 UYU", img: "https://images.unsplash.com/photo-1517649763962-0c6232660d02?auto=format&fit=crop&w=600&q=80" },
+            { name: "Piscina de Recuperación de Hielo", price: "$3.950 UYU", img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" }
+        ];
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            products.forEach((p, index) => {
+                grid.innerHTML += `
+                    <div class="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden group hover:border-amber-500/50 transition">
+                        <div class="h-64 overflow-hidden bg-neutral-950">
+                            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-2">${p.name}</h3>
+                            <p class="text-amber-400 font-semibold mb-4">${p.price}</p>
+                            <div class="flex gap-2">
+                                <a href="https://wa.me/598XXXXXXXX?text=Hola,%20me%20interesa%20el%20producto:%20${encodeURIComponent(p.name)}" target="_blank" class="flex-1 bg-neutral-800 hover:bg-neutral-700 text-center py-2 rounded text-xs font-bold uppercase tracking-wider transition">Consultar</a>
+                                <button onclick="deleteProduct(${index})" class="px-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded text-xs transition">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            panel.classList.toggle('translate-x-full');
+        }
+
+        function handleNewProduct(e) {
+            e.preventDefault();
+            const name = document.getElementById('p-name').value;
+            const price = document.getElementById('p-price').value;
+            const img = document.getElementById('p-img').value;
+
+            products.push({ name, price: `$${price} UYU`, img });
+            localStorage.setItem('phenom_products', JSON.stringify(products));
+            renderProducts();
+            document.getElementById('add-product-form').reset();
+            toggleAdminPanel();
+        }
+
+        function deleteProduct(index) {
+            if(confirm('¿Eliminar este producto de la vitrina?')) {
+                products.splice(index, 1);
+                localStorage.setItem('phenom_products', JSON.stringify(products));
+                renderProducts();
+            }
+        }
+
+        function resetProducts() {
+            localStorage.removeItem('phenom_products');
+            location.reload();
+        }
+
+        // Inicializar vista
+        renderProducts();
+    </script>
+</body>
+</html>
