@@ -25,6 +25,7 @@
 
             /* Logo */
             --logo-width: 170px;
+            --logo-height: auto;
             --logo-text-font: 'Impact', sans-serif;
             --logo-text-color: #ffffff;
             --logo-text-size: 24px;
@@ -120,10 +121,22 @@
             user-select: none;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .logo-svg { width: var(--logo-width); height: auto; max-height: 70px; }
+        .logo-display-area {
+            width: var(--logo-width);
+            height: var(--logo-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-display-area img, .logo-display-area svg {
+            width: 100%;
+            height: auto;
+            max-height: 70px;
+            object-fit: contain;
+        }
 
         .logo-text {
             color: var(--logo-text-color);
@@ -396,10 +409,12 @@
         <!-- HEADER -->
         <header id="main-header">
             <div class="logo-container" onclick="handleLogoClick()" title="Presioná 5 veces para el Panel de Edición">
-                <svg id="main-logo-svg" class="logo-svg" viewBox="0 0 240 70" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="120" cy="35" rx="110" ry="30" fill="none" stroke="#FFFFFF" stroke-width="3.5"/>
-                    <text x="120" y="44" font-family="Impact, sans-serif" font-size="30" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">PHENOM</text>
-                </svg>
+                <div id="logo-display-area" class="logo-display-area">
+                    <svg id="main-logo-svg" class="logo-svg" viewBox="0 0 240 70" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="120" cy="35" rx="110" ry="30" fill="none" stroke="#FFFFFF" stroke-width="3.5"/>
+                        <text x="120" y="44" font-family="Impact, sans-serif" font-size="30" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">PHENOM</text>
+                    </svg>
+                </div>
                 <span id="main-logo-text" class="logo-text"></span>
             </div>
 
@@ -535,15 +550,25 @@
             </div>
         </div>
 
-        <!-- Logo & Tipografía -->
+        <!-- Logo & Texto Adyacente -->
         <div class="editor-section">
             <h3>Logo & Texto Adyacente</h3>
             <div class="editor-field">
-                <label>Ancho del Logo (px)</label>
-                <input type="number" id="edit-logo-width" value="170" oninput="updateLogoSettings()">
+                <label>Adjuntar Imagen de Logo (Local)</label>
+                <input type="file" id="edit-logo-file" accept="image/*" onchange="applyLogoImage(event)">
+            </div>
+            <div class="editor-row">
+                <div class="editor-field" style="flex:1;">
+                    <label>Ancho del Logo (px)</label>
+                    <input type="number" id="edit-logo-width" value="170" oninput="updateLogoSettings()">
+                </div>
+                <div class="editor-field" style="flex:1;">
+                    <label>Alto del Logo (px o auto)</label>
+                    <input type="text" id="edit-logo-height" value="auto" oninput="updateLogoSettings()">
+                </div>
             </div>
             <div class="editor-field">
-                <label>Texto al Lado del Logo</label>
+                <label>Texto a la Derecha del Logo</label>
                 <input type="text" id="edit-logo-text-val" value="" placeholder="Ej: URUGUAY" oninput="updateLogoSettings()">
             </div>
             <div class="editor-field">
@@ -920,14 +945,28 @@
             document.documentElement.style.setProperty('--header-radius', `${radius}px`);
         }
 
+        function applyLogoImage(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logoArea = document.getElementById('logo-display-area');
+                    logoArea.innerHTML = `<img src="${e.target.result}" alt="Logo Personalizado">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         function updateLogoSettings() {
             const width = document.getElementById('edit-logo-width').value;
+            const height = document.getElementById('edit-logo-height').value;
             const textVal = document.getElementById('edit-logo-text-val').value;
             const font = document.getElementById('edit-logo-font').value;
             const color = document.getElementById('edit-logo-text-color').value;
             const spacing = document.getElementById('edit-logo-text-spacing').value;
 
             document.documentElement.style.setProperty('--logo-width', width + 'px');
+            document.documentElement.style.setProperty('--logo-height', height);
             document.documentElement.style.setProperty('--logo-text-font', font);
             document.documentElement.style.setProperty('--logo-text-color', color);
             document.documentElement.style.setProperty('--logo-text-spacing', spacing + 'px');
