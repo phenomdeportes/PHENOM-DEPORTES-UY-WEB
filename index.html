@@ -13,7 +13,7 @@
         .top-bar { background-color: #000; color: #fff; text-align: center; padding: 10px; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
 
         /* --- HEADER PRINCIPAL --- */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #fff; border-bottom: 1px solid #eaeaea; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #fff; border-bottom: 1px solid #eaeaea; transition: padding 0.3s ease; }
         .logo-container img { height: 45px; cursor: pointer; transition: all 0.3s ease; }
         .nav-links { display: flex; gap: 25px; }
         .nav-links a { text-decoration: none; color: #000; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
@@ -32,6 +32,16 @@
         .hero-subtitle { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin-bottom: 25px; }
         .btn-comprar { display: inline-flex; align-items: center; background: #fff; color: #000; padding: 15px 30px; font-weight: 900; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
         .btn-comprar:hover { background: #000; color: #fff; }
+
+        /* BOTÓN DE EDICIÓN HERO (Círculo Azul) */
+        .edit-hero-btn {
+            position: absolute; top: 20px; right: 20px; width: 35px; height: 35px;
+            background: rgba(0, 123, 255, 0.8); border: 2px solid #fff; border-radius: 50%;
+            color: #fff; font-size: 12px; font-weight: bold; cursor: pointer;
+            z-index: 10; display: none; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        body.admin-mode .edit-hero-btn { display: flex; }
 
         /* --- CARRUSEL HORIZONTAL --- */
         .carousel-section { padding: 40px; background: #fff; max-width: 100vw; }
@@ -139,7 +149,7 @@
     </div>
 
     <!-- HEADER -->
-    <header class="header">
+    <header class="header" id="main-header">
         <div class="logo-container">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2560px-Adidas_Logo.svg.png" alt="Logo" id="logo-trigger">
         </div>
@@ -162,19 +172,22 @@
 
     <!-- HERO SECTION (3 COLUMNAS) -->
     <section class="hero-grid">
-        <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=800');">
+        <div class="hero-col" id="hero-col-1" style="background-image: url('https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=800');">
+            <button class="edit-hero-btn" onclick="openHeroModal(1)">✎</button>
             <div class="hero-content">
                 <h1 class="hero-title" id="text-col1-title">PHENOM ELITE</h1>
                 <h2 class="hero-subtitle" id="text-col1-sub">MÁXIMA PROTECCIÓN</h2>
                 <a href="#" class="btn-comprar">COMPRAR AHORA →</a>
             </div>
         </div>
-        <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1596356453261-0d265eb26d43?q=80&w=800');">
+        <div class="hero-col" id="hero-col-2" style="background-image: url('https://images.unsplash.com/photo-1596356453261-0d265eb26d43?q=80&w=800');">
+            <button class="edit-hero-btn" onclick="openHeroModal(2)">✎</button>
             <div class="hero-content">
                 <h1 class="hero-title" id="text-col2-title">THE ORIGINAL</h1>
             </div>
         </div>
-        <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=800');">
+        <div class="hero-col" id="hero-col-3" style="background-image: url('https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=800');">
+            <button class="edit-hero-btn" onclick="openHeroModal(3)">✎</button>
             <div class="hero-content">
                 <h1 class="hero-title" id="text-col3-title">SPARRING PRO</h1>
                 <h2 class="hero-subtitle" id="text-col3-sub">ONZAS PRECISAS</h2>
@@ -249,7 +262,7 @@
                 </div>
             </div>
 
-            <!-- TARJETA CREAR PRODUCTO (Solo visible en Módulo Omega) -->
+            <!-- TARJETA CREAR PRODUCTO -->
             <div class="add-product-card admin-only" onclick="alert('Fase 3: Modal de creación de producto')">
                 <span>+ NUEVO PRODUCTO</span>
             </div>
@@ -332,6 +345,10 @@
             <input type="range" id="edit-logo-size" min="20" max="150" value="45">
         </div>
         <div class="admin-group">
+            <label>Altura Barra Blanca Superior (Padding px)</label>
+            <input type="range" id="edit-header-pad" min="5" max="50" value="15">
+        </div>
+        <div class="admin-group">
             <label>WhatsApp de Ventas (Ej: 59893418239)</label>
             <input type="text" id="edit-wp-num" value="59893418239">
         </div>
@@ -348,15 +365,15 @@
         <button class="btn-save" onclick="saveAllSettings()">GUARDAR CAMBIOS</button>
     </div>
 
-    <!-- MODAL DE EDICIÓN DE PRODUCTO -->
+    <!-- MODAL DE EDICIÓN DE PRODUCTO (CARRUSEL) -->
     <div class="simple-modal-overlay" id="edit-product-modal">
         <div class="simple-modal-content">
             <button class="simple-modal-close" onclick="closeEditModal()">X</button>
             <div class="simple-modal-title">EDITAR PRODUCTO</div>
             
             <div class="simple-group">
-                <label>Link de la Foto (URL)</label>
-                <input type="text" id="edit-mod-img" placeholder="https://...">
+                <label>Adjuntar Archivo de Imagen</label>
+                <input type="file" id="edit-mod-file" accept="image/*">
             </div>
             <div class="simple-group">
                 <label>Título del Producto</label>
@@ -371,6 +388,21 @@
         </div>
     </div>
 
+    <!-- MODAL DE EDICIÓN DE HERO (COLUMNAS) -->
+    <div class="simple-modal-overlay" id="edit-hero-modal">
+        <div class="simple-modal-content">
+            <button class="simple-modal-close" onclick="closeHeroModal()">X</button>
+            <div class="simple-modal-title" id="hero-modal-title">EDITAR COLUMNA HERO</div>
+            
+            <div class="simple-group">
+                <label>Adjuntar Imagen de Fondo</label>
+                <input type="file" id="edit-hero-file" accept="image/*">
+            </div>
+            
+            <button class="btn-apply" onclick="applyHeroChanges()">APLICAR IMAGEN</button>
+        </div>
+    </div>
+
     <!-- NOTIFICACIÓN DE ÉXITO -->
     <div id="toast-success">¡CAMBIOS GUARDADOS CON ÉXITO! ✓</div>
 
@@ -381,6 +413,7 @@
         let clickTimer;
         const logoTrigger = document.getElementById('logo-trigger');
         const adminPanel = document.getElementById('admin-panel');
+        const mainHeader = document.getElementById('main-header');
 
         function toggleAdminMode(forceState) {
             if (forceState) {
@@ -405,9 +438,13 @@
             }
         });
 
-        // --- 2. CONTROL EN VIVO DE LOGO ---
+        // --- 2. CONTROLES EN VIVO HEADER Y LOGO ---
         document.getElementById('edit-logo-size').addEventListener('input', function(e) {
             logoTrigger.style.height = e.target.value + 'px';
+        });
+
+        document.getElementById('edit-header-pad').addEventListener('input', function(e) {
+            mainHeader.style.padding = `${e.target.value}px 40px`;
         });
 
         document.getElementById('edit-logo-file').addEventListener('change', function(e) {
@@ -426,17 +463,17 @@
         // --- 3. LÓGICA DEL MODAL DE EDICIÓN DE CARRUSEL ---
         let currentEditingCard = null;
         const editModal = document.getElementById('edit-product-modal');
+        let tempNewImgBase64 = null;
 
         function openEditModal(btnElement) {
             currentEditingCard = btnElement.closest('.card-mini');
-            
-            const currentImg = currentEditingCard.querySelector('img').src;
             const currentTitle = currentEditingCard.querySelector('.card-title').innerText;
             const currentPrice = currentEditingCard.querySelector('.card-price-tag').innerText;
             
-            document.getElementById('edit-mod-img').value = currentImg;
             document.getElementById('edit-mod-title').value = currentTitle;
             document.getElementById('edit-mod-price').value = currentPrice;
+            document.getElementById('edit-mod-file').value = '';
+            tempNewImgBase64 = null;
             
             editModal.classList.add('active');
         }
@@ -446,27 +483,76 @@
             currentEditingCard = null;
         }
 
+        document.getElementById('edit-mod-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    tempNewImgBase64 = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
         function applyProductChanges() {
             if (!currentEditingCard) return;
             
-            const newImg = document.getElementById('edit-mod-img').value;
             const newTitle = document.getElementById('edit-mod-title').value;
             const newPrice = document.getElementById('edit-mod-price').value;
             
-            if(newImg) currentEditingCard.querySelector('img').src = newImg;
+            if(tempNewImgBase64) currentEditingCard.querySelector('img').src = tempNewImgBase64;
             if(newTitle) currentEditingCard.querySelector('.card-title').innerText = newTitle;
             if(newPrice) currentEditingCard.querySelector('.card-price-tag').innerText = newPrice;
             
             closeEditModal();
         }
 
-        // --- 4. BOTÓN MAESTRO: GUARDAR EN LOCALSTORAGE ---
+        // --- 4. LÓGICA DEL MODAL DE EDICIÓN DE HERO (COLUMNAS) ---
+        let currentHeroColNum = null;
+        const heroModal = document.getElementById('edit-hero-modal');
+        let tempHeroImgBase64 = null;
+
+        function openHeroModal(colNum) {
+            currentHeroColNum = colNum;
+            document.getElementById('hero-modal-title').innerText = "EDITAR COLUMNA HERO " + colNum;
+            document.getElementById('edit-hero-file').value = '';
+            tempHeroImgBase64 = null;
+            heroModal.classList.add('active');
+        }
+
+        function closeHeroModal() {
+            heroModal.classList.remove('active');
+            currentHeroColNum = null;
+        }
+
+        document.getElementById('edit-hero-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    tempHeroImgBase64 = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function applyHeroChanges() {
+            if (!currentHeroColNum || !tempHeroImgBase64) return;
+            const targetCol = document.getElementById('hero-col-' + currentHeroColNum);
+            if (targetCol) {
+                targetCol.style.backgroundImage = `url('${tempHeroImgBase64}')`;
+            }
+            closeHeroModal();
+        }
+
+        // --- 5. BOTÓN MAESTRO: GUARDAR EN LOCALSTORAGE ---
         function saveAllSettings() {
             const settings = {
                 fubBar: document.getElementById('edit-fub-bar').value,
                 col1Title: document.getElementById('edit-col1-title').value,
                 wpNum: document.getElementById('edit-wp-num').value,
                 logoSize: document.getElementById('edit-logo-size').value,
+                headerPad: document.getElementById('edit-header-pad').value,
                 logoSrc: logoTrigger.dataset.customLogo || logoTrigger.src
             };
             localStorage.setItem('phenom_site_settings', JSON.stringify(settings));
@@ -477,7 +563,7 @@
             setTimeout(() => { toast.style.display = 'none'; }, 3000);
         }
 
-        // --- 5. INYECCIÓN AL FRONTEND ---
+        // --- 6. INYECCIÓN AL FRONTEND ---
         function applySettings(settings) {
             if(settings.fubBar) { 
                 document.getElementById('fub-bar').innerText = settings.fubBar; 
@@ -495,13 +581,17 @@
                 logoTrigger.style.height = settings.logoSize + 'px';
                 document.getElementById('edit-logo-size').value = settings.logoSize;
             }
+            if(settings.headerPad) {
+                mainHeader.style.padding = `${settings.headerPad}px 40px`;
+                document.getElementById('edit-header-pad').value = settings.headerPad;
+            }
             if(settings.logoSrc && settings.logoSrc !== window.location.href) {
                 logoTrigger.src = settings.logoSrc;
                 logoTrigger.dataset.customLogo = settings.logoSrc;
             }
         }
 
-        // --- 6. CARGA AUTOMÁTICA AL ABRIR LA PÁGINA ---
+        // --- 7. CARGA AUTOMÁTICA AL ABRIR LA PÁGINA ---
         window.onload = () => {
             const saved = localStorage.getItem('phenom_site_settings');
             if (saved) {
