@@ -14,7 +14,7 @@
 
         /* --- HEADER PRINCIPAL --- */
         .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #fff; border-bottom: 1px solid #eaeaea; }
-        .logo-container img { height: 45px; cursor: pointer; }
+        .logo-container img { height: 45px; cursor: pointer; transition: all 0.3s ease; }
         .nav-links { display: flex; gap: 25px; }
         .nav-links a { text-decoration: none; color: #000; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
         .nav-links a:hover { color: #666; }
@@ -42,9 +42,9 @@
         .carousel-actions { display: flex; align-items: center; gap: 15px; }
         .view-all { color: #000; text-decoration: underline; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
         .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
-        .carousel-track { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; }
+        .carousel-track { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; align-items: stretch; }
         .carousel-track::-webkit-scrollbar { display: none; }
-        .card-mini { min-width: 280px; max-width: 280px; flex-shrink: 0; cursor: pointer; }
+        .card-mini { min-width: 280px; max-width: 280px; flex-shrink: 0; cursor: pointer; position: relative; }
         .card-img-container { position: relative; background: #f4f4f4; height: 280px; display: flex; justify-content: center; align-items: center; }
         .card-img-container img { max-width: 90%; max-height: 90%; object-fit: contain; }
         .heart-icon { position: absolute; top: 15px; right: 15px; font-size: 20px; color: #000; }
@@ -52,6 +52,29 @@
         .card-info { padding-top: 15px; }
         .card-title { font-size: 13px; color: #000; font-weight: 400; margin-bottom: 3px; }
         .card-category { font-size: 13px; color: #767677; }
+
+        /* --- MODO ADMINISTRADOR (VISIBILIDAD CONTROLADA) --- */
+        .admin-only { display: none; }
+        body.admin-mode .admin-only { display: block; }
+        body.admin-mode .admin-flex { display: flex; }
+
+        /* BOTONES DE EDICIÓN EN PRODUCTOS */
+        .edit-card-btn {
+            position: absolute; top: 10px; left: 10px; z-index: 10;
+            background: #e00; color: #fff; border: none; padding: 5px 10px;
+            font-size: 11px; font-weight: bold; cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* TARJETA NUEVO PRODUCTO */
+        .add-product-card {
+            min-width: 280px; max-width: 280px; flex-shrink: 0;
+            background: #f9f9f9; border: 2px dashed #000; cursor: pointer;
+            display: none; justify-content: center; align-items: center;
+            height: 355px; transition: background 0.3s;
+        }
+        .add-product-card:hover { background: #eaeaea; }
+        .add-product-card span { font-size: 16px; font-weight: 900; color: #000; }
 
         /* --- SECCIÓN INFO MARCA --- */
         .info-section { background-color: #f4f4ec; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; color: #000; }
@@ -162,7 +185,9 @@
             </div>
         </div>
         <div class="carousel-track">
+            
             <div class="card-mini">
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
                     <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=400" alt="Guante Phenom">
@@ -173,7 +198,9 @@
                     <p class="card-category">Unisex</p>
                 </div>
             </div>
+
             <div class="card-mini">
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
                     <img src="https://images.unsplash.com/photo-1517649763962-0c6232660d02?q=80&w=400" alt="Guante Elite">
@@ -184,7 +211,9 @@
                     <p class="card-category">Unisex</p>
                 </div>
             </div>
+
             <div class="card-mini">
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
                     <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400" alt="Cabezal">
@@ -195,7 +224,9 @@
                     <p class="card-category">Protección</p>
                 </div>
             </div>
+
             <div class="card-mini">
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
                     <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=400" alt="Vendas">
@@ -206,6 +237,12 @@
                     <p class="card-category">Accesorios</p>
                 </div>
             </div>
+
+            <!-- TARJETA CREAR PRODUCTO (Solo visible en Módulo Omega) -->
+            <div class="add-product-card admin-only" onclick="alert('Fase 3: Modal de creación de producto')">
+                <span>+ NUEVO PRODUCTO</span>
+            </div>
+
         </div>
     </section>
 
@@ -268,13 +305,26 @@
     </footer>
 
     <!-- WHATSAPP FLOTANTE -->
-    <a href="https://wa.me/59899659481" class="wp-float" target="_blank">✆</a>
+    <a href="https://wa.me/59893418239" class="wp-float" target="_blank">✆</a>
 
     <!-- PANEL DE EDICIÓN OCULTO -->
     <div id="admin-panel">
-        <button class="btn-close" onclick="document.getElementById('admin-panel').classList.remove('active')">X</button>
+        <button class="btn-close" onclick="toggleAdminMode(false)">X</button>
         <div class="admin-header">Control Omega</div>
         
+        <div class="admin-group">
+            <label>Logo de la Marca (Subir Archivo)</label>
+            <input type="file" id="edit-logo-file" accept="image/*">
+        </div>
+        <div class="admin-group">
+            <label>Tamaño del Logo (px)</label>
+            <input type="range" id="edit-logo-size" min="20" max="150" value="45">
+        </div>
+        <div class="admin-group">
+            <label>WhatsApp de Ventas (Ej: 59893418239)</label>
+            <input type="text" id="edit-wp-num" value="59893418239">
+        </div>
+        <hr style="margin: 20px 0; border: 1px solid #ccc;">
         <div class="admin-group">
             <label>Texto Barra Superior</label>
             <input type="text" id="edit-fub-bar">
@@ -282,14 +332,6 @@
         <div class="admin-group">
             <label>Título Columna 1 (Hero)</label>
             <input type="text" id="edit-col1-title">
-        </div>
-        <div class="admin-group">
-            <label>Subtítulo Columna 1</label>
-            <input type="text" id="edit-col1-sub">
-        </div>
-        <div class="admin-group">
-            <label>Título Sección SEO 1</label>
-            <input type="text" id="edit-info-title-1">
         </div>
         
         <button class="btn-save" onclick="saveAllSettings()">GUARDAR CAMBIOS</button>
@@ -300,39 +342,72 @@
 
     <!-- SCRIPT DE MOTOR LÓGICO -->
     <script>
-        // --- 1. LÓGICA GATILLO: 5 TOQUES EN LOGO ---
+        // --- 1. LÓGICA GATILLO Y MODO ADMINISTRADOR ---
         let clickCount = 0;
         let clickTimer;
         const logoTrigger = document.getElementById('logo-trigger');
         const adminPanel = document.getElementById('admin-panel');
 
+        function toggleAdminMode(forceState) {
+            if (forceState) {
+                adminPanel.classList.add('active');
+                document.body.classList.add('admin-mode');
+                // Asegurar que las tarjetas ocultas se muestren como flex en modo admin
+                document.querySelectorAll('.add-product-card').forEach(el => el.style.display = 'flex');
+            } else {
+                adminPanel.classList.remove('active');
+                document.body.classList.remove('admin-mode');
+                document.querySelectorAll('.add-product-card').forEach(el => el.style.display = 'none');
+            }
+        }
+
         logoTrigger.addEventListener('click', () => {
             clickCount++;
             clearTimeout(clickTimer);
             if (clickCount === 5) {
-                adminPanel.classList.add('active');
+                toggleAdminMode(true);
                 clickCount = 0; 
             } else {
                 clickTimer = setTimeout(() => { clickCount = 0; }, 2000); 
             }
         });
 
-        // --- 2. BOTÓN MAESTRO: GUARDAR EN LOCALSTORAGE ---
+        // --- 2. CONTROL EN VIVO DE LOGO ---
+        document.getElementById('edit-logo-size').addEventListener('input', function(e) {
+            logoTrigger.style.height = e.target.value + 'px';
+        });
+
+        document.getElementById('edit-logo-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const base64 = event.target.result;
+                    logoTrigger.src = base64;
+                    logoTrigger.dataset.customLogo = base64; 
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // --- 3. BOTÓN MAESTRO: GUARDAR EN LOCALSTORAGE ---
         function saveAllSettings() {
             const settings = {
                 fubBar: document.getElementById('edit-fub-bar').value,
                 col1Title: document.getElementById('edit-col1-title').value,
-                col1Sub: document.getElementById('edit-col1-sub').value,
-                infoTitle1: document.getElementById('edit-info-title-1').value
+                wpNum: document.getElementById('edit-wp-num').value,
+                logoSize: document.getElementById('edit-logo-size').value,
+                logoSrc: logoTrigger.dataset.customLogo || logoTrigger.src
             };
             localStorage.setItem('phenom_site_settings', JSON.stringify(settings));
             applySettings(settings);
+            
             const toast = document.getElementById('toast-success');
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 3000);
         }
 
-        // --- 3. INYECCIÓN AL FRONTEND ---
+        // --- 4. INYECCIÓN AL FRONTEND ---
         function applySettings(settings) {
             if(settings.fubBar) { 
                 document.getElementById('fub-bar').innerText = settings.fubBar; 
@@ -342,17 +417,21 @@
                 document.getElementById('text-col1-title').innerText = settings.col1Title; 
                 document.getElementById('edit-col1-title').value = settings.col1Title;
             }
-            if(settings.col1Sub) { 
-                document.getElementById('text-col1-sub').innerText = settings.col1Sub; 
-                document.getElementById('edit-col1-sub').value = settings.col1Sub;
+            if(settings.wpNum) {
+                document.querySelector('.wp-float').href = 'https://wa.me/' + settings.wpNum;
+                document.getElementById('edit-wp-num').value = settings.wpNum;
             }
-            if(settings.infoTitle1) { 
-                document.getElementById('text-info-title-1').innerText = settings.infoTitle1; 
-                document.getElementById('edit-info-title-1').value = settings.infoTitle1;
+            if(settings.logoSize) {
+                logoTrigger.style.height = settings.logoSize + 'px';
+                document.getElementById('edit-logo-size').value = settings.logoSize;
+            }
+            if(settings.logoSrc && settings.logoSrc !== window.location.href) {
+                logoTrigger.src = settings.logoSrc;
+                logoTrigger.dataset.customLogo = settings.logoSrc;
             }
         }
 
-        // --- 4. CARGA AUTOMÁTICA AL ABRIR LA PÁGINA ---
+        // --- 5. CARGA AUTOMÁTICA AL ABRIR LA PÁGINA ---
         window.onload = () => {
             const saved = localStorage.getItem('phenom_site_settings');
             if (saved) {
@@ -360,8 +439,7 @@
             } else {
                 document.getElementById('edit-fub-bar').value = document.getElementById('fub-bar').innerText;
                 document.getElementById('edit-col1-title').value = document.getElementById('text-col1-title').innerText;
-                document.getElementById('edit-col1-sub').value = document.getElementById('text-col1-sub').innerText;
-                document.getElementById('edit-info-title-1').value = document.getElementById('text-info-title-1').innerText;
+                document.getElementById('edit-wp-num').value = "59893418239";
             }
         };
     </script>
