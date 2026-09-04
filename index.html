@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phenom | Tienda Oficial</title>
+    <!-- Importación de las 15 fuentes tipográficas solicitadas -->
+    <link href="https://fonts.googleapis.com/css2?family=Arial&family=Courier+New&family=Georgia&family=Impact&family=Lucida+Console&family=Palatino&family=Tahoma&family=Times+New+Roman&family=Verdana&family=Montserrat:wght@400;700;900&family=Oswald:wght@400;700&family=Roboto:wght@400;700;900&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* --- RESET Y VARIABLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
@@ -86,23 +88,53 @@
         .add-product-card:hover { background: #eaeaea; }
         .add-product-card span { font-size: 16px; font-weight: 900; color: #000; }
 
-        /* --- SECCIÓN INFO MARCA --- */
+        /* --- SECCIÓN INFO MARCA (FONDO CREMA) --- */
         .info-section { background-color: #f4f4ec; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; color: #000; }
+        .info-column { position: relative; }
         .info-column h2 { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin-bottom: 25px; letter-spacing: -0.5px; }
         .info-column p { font-size: 14px; line-height: 1.7; margin-bottom: 15px; color: #111; }
 
+        /* BOTÓN EDICIÓN COLUMNA INFO (Círculo Azul) */
+        .edit-info-btn {
+            position: absolute; top: 0; right: 0; width: 35px; height: 35px;
+            background: rgba(0, 123, 255, 0.8); border: 2px solid #fff; border-radius: 50%;
+            color: #fff; font-size: 12px; font-weight: bold; cursor: pointer;
+            z-index: 10; display: none; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        body.admin-mode .edit-info-btn { display: flex; }
+
         /* --- BARRA NEWSLETTER --- */
-        .newsletter-bar { background-color: #ede734; padding: 40px 20px; display: flex; justify-content: center; align-items: center; gap: 30px; }
+        .newsletter-bar { background-color: #ede734; padding: 40px 20px; display: flex; justify-content: center; align-items: center; gap: 30px; position: relative; }
         .newsletter-bar h2 { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #000; }
-        .btn-register { background-color: #000; color: #fff; padding: 15px 30px; font-weight: 900; text-transform: uppercase; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-register { background-color: #000; color: #fff; padding: 15px 30px; font-weight: 900; text-transform: uppercase; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; border: none; }
         .btn-register:hover { background-color: #333; }
+        
+        .edit-news-btn {
+            position: absolute; top: 15px; right: 15px; width: 35px; height: 35px;
+            background: rgba(0, 123, 255, 0.8); border: 2px solid #fff; border-radius: 50%;
+            color: #fff; font-size: 12px; font-weight: bold; cursor: pointer;
+            z-index: 10; display: none; align-items: center; justify-content: center;
+        }
+        body.admin-mode .edit-news-btn { display: flex; }
 
         /* --- FOOTER PRINCIPAL --- */
         .footer { background-color: #fff; padding: 60px 40px; display: grid; grid-template-columns: repeat(4, 1fr) 0.5fr; gap: 30px; color: #000; border-top: 1px solid #eaeaea; }
+        .footer-col { position: relative; }
         .footer-col h3 { font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
         .footer-col a { display: block; color: #333; text-decoration: none; font-size: 13px; margin-bottom: 12px; }
         .footer-col a:hover { text-decoration: underline; color: #000; }
         .ssl-badge { margin-top: 5px; width: 50px; }
+
+        /* BOTÓN EDICIÓN FOOTER (Círculo Azul) */
+        .edit-footer-btn {
+            position: absolute; top: 0; right: 0; width: 30px; height: 30px;
+            background: rgba(0, 123, 255, 0.8); border: 2px solid #fff; border-radius: 50%;
+            color: #fff; font-size: 11px; font-weight: bold; cursor: pointer;
+            z-index: 10; display: none; align-items: center; justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        body.admin-mode .edit-footer-btn { display: flex; }
 
         /* --- WHATSAPP FLOTANTE --- */
         .wp-float { position: fixed; bottom: 30px; right: 30px; background: #000; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 100; }
@@ -113,7 +145,7 @@
         .admin-header { font-weight: 900; font-size: 16px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 10px;}
         .admin-group { margin-bottom: 15px; }
         .admin-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; color: #333; }
-        .admin-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline: none; }
+        .admin-group input, .admin-group select, .admin-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline: none; background: #fff; }
         .btn-save { background: #000; color: #fff; width: 100%; padding: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; letter-spacing: 1px; }
         .btn-save:hover { background: #333; }
         .btn-close { background: #e00; color: #fff; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; float: right; }
@@ -121,12 +153,12 @@
         /* --- MODAL DE EDICIÓN SIMPLE --- */
         .simple-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center; }
         .simple-modal-overlay.active { display: flex; }
-        .simple-modal-content { background: #fff; padding: 30px; width: 350px; border: 2px solid #000; position: relative; }
+        .simple-modal-content { background: #fff; padding: 30px; width: 380px; border: 2px solid #000; position: relative; max-height: 90vh; overflow-y: auto; }
         .simple-modal-title { font-weight: 900; font-size: 16px; text-transform: uppercase; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
         .simple-modal-close { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 20px; font-weight: bold; cursor: pointer; }
         .simple-group { margin-bottom: 15px; }
         .simple-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; color: #333; }
-        .simple-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline: none; }
+        .simple-group input, .simple-group select, .simple-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline: none; }
         .btn-apply { background: #000; color: #fff; width: 100%; padding: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
 
         /* CUADRO DE ÉXITO FLOTANTE */
@@ -184,6 +216,8 @@
             <button class="edit-hero-btn" onclick="openHeroModal(2)">✎</button>
             <div class="hero-content">
                 <h1 class="hero-title" id="text-col2-title">THE ORIGINAL</h1>
+                <h2 class="hero-subtitle" id="text-col2-sub"></h2>
+                <a href="#" class="btn-comprar" style="display:none;">COMPRAR AHORA →</a>
             </div>
         </div>
         <div class="hero-col" id="hero-col-3" style="background-image: url('https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=800');">
@@ -191,6 +225,7 @@
             <div class="hero-content">
                 <h1 class="hero-title" id="text-col3-title">SPARRING PRO</h1>
                 <h2 class="hero-subtitle" id="text-col3-sub">ONZAS PRECISAS</h2>
+                <a href="#" class="btn-comprar" style="display:none;">COMPRAR AHORA →</a>
             </div>
         </div>
     </section>
@@ -263,20 +298,22 @@
             </div>
 
             <!-- TARJETA CREAR PRODUCTO -->
-            <div class="add-product-card admin-only" onclick="alert('Fase 3: Modal de creación de producto')">
+            <div class="add-product-card admin-only" onclick="alert('Módulo de creación de producto')">
                 <span>+ NUEVO PRODUCTO</span>
             </div>
 
         </div>
     </section>
 
-    <!-- SECCIÓN INFO BOXEO -->
+    <!-- SECCIÓN INFO BOXEO (FONDO CREMA) -->
     <section class="info-section">
-        <div class="info-column">
+        <div class="info-column" id="info-col-1">
+            <button class="edit-info-btn" onclick="openInfoModal(1)">✎</button>
             <h2 id="text-info-title-1">HISTORIA, COMBATE Y EQUIPAMIENTO PHENOM</h2>
             <p id="text-info-desc-1">El deporte nos mantiene alerta. Nos une y nos forja. A través del boxeo y los deportes de combate podemos cambiar vidas, inspirándote a subir al ring y superar tu mejor marca personal. Ofrecemos artículos deportivos con las últimas tecnologías para absorber el impacto y mejorar tu rendimiento en cada round. Phenom es el hogar del peleador amateur, del atleta profesional y del entusiasta del fitness que deja todo en el saco. Nuestra ropa y equipamiento te mantienen concentrado antes de que suene la campana. En el sparring, en la competencia y en la recuperación. Estamos aquí para apoyar a los verdaderos peleadores.</p>
         </div>
-        <div class="info-column">
+        <div class="info-column" id="info-col-2">
+            <button class="edit-info-btn" onclick="openInfoModal(2)">✎</button>
             <h2 id="text-info-title-2">TU TIENDA DE DEPORTES DE COMBATE PARA CUALQUIER DESAFÍO</h2>
             <p id="text-info-desc-2">Phenom diseña equipamiento para atletas de todo tipo. Creadores que disfrutan desafiar las convenciones y romper las normas del combate. Confeccionamos los guantes y protectores que visten a los campeones en preparación para su próxima pelea. Para que no pierdan la concentración. Diseñamos con un objetivo en mente: máxima protección y durabilidad extrema para deportes de alto impacto. Innovamos en cada costura y ponemos a prueba nuevas tecnologías, desde nuestras onzas precisas hasta el equipamiento de recuperación. A través de nuestras colecciones, eliminamos las barreras entre el diseño de vanguardia y el mejor rendimiento en el ring.</p>
         </div>
@@ -284,20 +321,23 @@
 
     <!-- BARRA NEWSLETTER -->
     <section class="newsletter-bar">
+        <button class="edit-news-btn" onclick="openNewsModal()">✎</button>
         <h2 id="text-news-title">SUSCRÍBETE AL NEWSLETTER</h2>
-        <a href="#" class="btn-register" id="text-news-btn">REGÍSTRATE GRATIS →</a>
+        <button class="btn-register" id="text-news-btn" onclick="openNewsletterForm()">REGÍSTRATE GRATIS →</button>
     </section>
 
     <!-- FOOTER PRINCIPAL -->
     <footer class="footer">
-        <div class="footer-col">
+        <div class="footer-col" id="footer-col-1">
+            <button class="edit-footer-btn" onclick="openFooterModal(1)">✎</button>
             <h3>PRODUCTOS</h3>
             <a href="#">Guantes de Boxeo</a>
             <a href="#">Tibiales y Cabezales</a>
             <a href="#">Vendas y Bucales</a>
             <a href="#">Tinas de Recuperación</a>
         </div>
-        <div class="footer-col">
+        <div class="footer-col" id="footer-col-2">
+            <button class="edit-footer-btn" onclick="openFooterModal(2)">✎</button>
             <h3>DEPORTES</h3>
             <a href="#">Boxeo</a>
             <a href="#">Kickboxing</a>
@@ -308,7 +348,8 @@
             <a href="#">Phenom Pro</a>
             <a href="#">Sparring Series</a>
         </div>
-        <div class="footer-col">
+        <div class="footer-col" id="footer-col-3">
+            <button class="edit-footer-btn" onclick="openFooterModal(3)">✎</button>
             <h3>ASISTENCIA</h3>
             <a href="#">Contacto</a>
             <a href="#">Preguntas Frecuentes</a>
@@ -316,7 +357,8 @@
             <a href="#">Guía de Tallas (Onzas)</a>
             <a href="#">Políticas del Sitio Web</a>
         </div>
-        <div class="footer-col">
+        <div class="footer-col" id="footer-col-4">
+            <button class="edit-footer-btn" onclick="openFooterModal(4)">✎</button>
             <h3>INFORMACIÓN DE LA EMPRESA</h3>
             <a href="#">Trabaja con Nosotros</a>
             <a href="#">Información Corporativa</a>
@@ -331,7 +373,7 @@
     <!-- WHATSAPP FLOTANTE -->
     <a href="https://wa.me/59893418239" class="wp-float" target="_blank">✆</a>
 
-    <!-- PANEL DE EDICIÓN OCULTO -->
+    <!-- PANEL DE EDICIÓN OCULTO (MAESTRO) -->
     <div id="admin-panel">
         <button class="btn-close" onclick="toggleAdminMode(false)">X</button>
         <div class="admin-header">Control Omega</div>
@@ -356,10 +398,6 @@
         <div class="admin-group">
             <label>Texto Barra Superior</label>
             <input type="text" id="edit-fub-bar">
-        </div>
-        <div class="admin-group">
-            <label>Título Columna 1 (Hero)</label>
-            <input type="text" id="edit-col1-title">
         </div>
         
         <button class="btn-save" onclick="saveAllSettings()">GUARDAR CAMBIOS</button>
@@ -388,7 +426,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE EDICIÓN DE HERO (COLUMNAS) -->
+    <!-- MODAL DE EDICIÓN DE HERO (COLUMNAS CON 15 FUENTES) -->
     <div class="simple-modal-overlay" id="edit-hero-modal">
         <div class="simple-modal-content">
             <button class="simple-modal-close" onclick="closeHeroModal()">X</button>
@@ -398,15 +436,131 @@
                 <label>Adjuntar Imagen de Fondo</label>
                 <input type="file" id="edit-hero-file" accept="image/*">
             </div>
+            <div class="simple-group">
+                <label>Título Principal</label>
+                <input type="text" id="hero-mod-title">
+            </div>
+            <div class="simple-group">
+                <label>Subtítulo</label>
+                <input type="text" id="hero-mod-sub">
+            </div>
+            <div class="simple-group">
+                <label>Tipografía (15 Opciones)</label>
+                <select id="hero-mod-font">
+                    <option value="'Arial', sans-serif">Arial</option>
+                    <option value="'Courier New', monospace">Courier New</option>
+                    <option value="'Georgia', serif">Georgia</option>
+                    <option value="'Impact', sans-serif">Impact</option>
+                    <option value="'Lucida Console', monospace">Lucida Console</option>
+                    <option value="'Palatino', serif">Palatino</option>
+                    <option value="'Tahoma', sans-serif">Tahoma</option>
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <option value="'Verdana', sans-serif">Verdana</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Oswald', sans-serif">Oswald</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                    <option value="'Lato', sans-serif">Lato</option>
+                    <option value="'Poppins', sans-serif">Poppins</option>
+                </select>
+            </div>
             
-            <button class="btn-apply" onclick="applyHeroChanges()">APLICAR IMAGEN</button>
+            <button class="btn-apply" onclick="applyHeroChanges()">APLICAR CAMBIOS</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDICIÓN DE COLUMNA INFO (FONDO CREMA CON 15 FUENTES) -->
+    <div class="simple-modal-overlay" id="edit-info-modal">
+        <div class="simple-modal-content">
+            <button class="simple-modal-close" onclick="closeInfoModal()">X</button>
+            <div class="simple-modal-title" id="info-modal-title">EDITAR COLUMNA INFO</div>
+            
+            <div class="simple-group">
+                <label>Título</label>
+                <input type="text" id="info-mod-title">
+            </div>
+            <div class="simple-group">
+                <label>Texto Descriptivo</label>
+                <textarea id="info-mod-desc" rows="6"></textarea>
+            </div>
+            <div class="simple-group">
+                <label>Tipografía (15 Opciones)</label>
+                <select id="info-mod-font">
+                    <option value="'Arial', sans-serif">Arial</option>
+                    <option value="'Courier New', monospace">Courier New</option>
+                    <option value="'Georgia', serif">Georgia</option>
+                    <option value="'Impact', sans-serif">Impact</option>
+                    <option value="'Lucida Console', monospace">Lucida Console</option>
+                    <option value="'Palatino', serif">Palatino</option>
+                    <option value="'Tahoma', sans-serif">Tahoma</option>
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <option value="'Verdana', sans-serif">Verdana</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Oswald', sans-serif">Oswald</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                    <option value="'Lato', sans-serif">Lato</option>
+                    <option value="'Poppins', sans-serif">Poppins</option>
+                </select>
+            </div>
+            
+            <button class="btn-apply" onclick="applyInfoChanges()">APLICAR CAMBIOS</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDICIÓN DE NEWSLETTER -->
+    <div class="simple-modal-overlay" id="edit-news-modal">
+        <div class="simple-modal-content">
+            <button class="simple-modal-close" onclick="closeNewsModal()">X</button>
+            <div class="simple-modal-title">EDITAR NEWSLETTER</div>
+            <div class="simple-group">
+                <label>Texto del Título</label>
+                <input type="text" id="news-mod-title" value="SUSCRÍBETE AL NEWSLETTER">
+            </div>
+            <button class="btn-apply" onclick="applyNewsChanges()">APLICAR CAMBIOS</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDICIÓN DE FOOTER -->
+    <div class="simple-modal-overlay" id="edit-footer-modal">
+        <div class="simple-modal-content">
+            <button class="simple-modal-close" onclick="closeFooterModal()">X</button>
+            <div class="simple-modal-title" id="footer-modal-title">EDITAR COLUMNA FOOTER</div>
+            <div class="simple-group">
+                <label>Contenido (HTML / Enlaces)</label>
+                <textarea id="footer-mod-html" rows="6"></textarea>
+            </div>
+            <button class="btn-apply" onclick="applyFooterChanges()">APLICAR CAMBIOS</button>
+        </div>
+    </div>
+
+    <!-- MODAL INTERACTIVO DE REGISTRO NEWSLETTER (NOMBRE Y WHATSAPP) -->
+    <div class="simple-modal-overlay" id="newsletter-form-modal">
+        <div class="simple-modal-content">
+            <button class="simple-modal-close" onclick="closeNewsletterForm()">X</button>
+            <div class="simple-modal-title">¡ÚNETE A PHENOM!</div>
+            <form onsubmit="submitNewsletter(event)">
+                <div class="simple-group">
+                    <label>Tu Nombre *</label>
+                    <input type="text" id="nl-name" required placeholder="Ej. Juan Pérez">
+                </div>
+                <div class="simple-group">
+                    <label>Tu WhatsApp *</label>
+                    <input type="text" id="nl-wp" required placeholder="Ej. 099123456">
+                </div>
+                <div class="simple-group">
+                    <label>Correo Electrónico (Opcional)</label>
+                    <input type="email" id="nl-email" placeholder="tucorreo@email.com">
+                </div>
+                <button type="submit" class="btn-apply">REGISTRARME AHORA</button>
+            </form>
         </div>
     </div>
 
     <!-- NOTIFICACIÓN DE ÉXITO -->
-    <div id="toast-success">¡CAMBIOS GUARDADOS CON ÉXITO! ✓</div>
+    <div id="toast-success">¡CAMBIOS GUARDADOS Y PERSISTIDOS! ✓</div>
 
-    <!-- SCRIPT DE MOTOR LÓGICO -->
+    <!-- SCRIPT DE MOTOR LÓGICO Y PERSISTENCIA -->
     <script>
         // --- 1. LÓGICA GATILLO Y MODO ADMINISTRADOR ---
         let clickCount = 0;
@@ -460,7 +614,7 @@
             }
         });
 
-        // --- 3. LÓGICA DEL MODAL DE EDICIÓN DE CARRUSEL ---
+        // --- 3. LÓGICA MODAL DE EDICIÓN DE CARRUSEL ---
         let currentEditingCard = null;
         const editModal = document.getElementById('edit-product-modal');
         let tempNewImgBase64 = null;
@@ -496,7 +650,6 @@
 
         function applyProductChanges() {
             if (!currentEditingCard) return;
-            
             const newTitle = document.getElementById('edit-mod-title').value;
             const newPrice = document.getElementById('edit-mod-price').value;
             
@@ -505,9 +658,10 @@
             if(newPrice) currentEditingCard.querySelector('.card-price-tag').innerText = newPrice;
             
             closeEditModal();
+            triggerSaveToast();
         }
 
-        // --- 4. LÓGICA DEL MODAL DE EDICIÓN DE HERO (COLUMNAS) ---
+        // --- 4. LÓGICA MODAL DE HERO (3 COLUMNAS + FUENTES) ---
         let currentHeroColNum = null;
         const heroModal = document.getElementById('edit-hero-modal');
         let tempHeroImgBase64 = null;
@@ -516,6 +670,9 @@
             currentHeroColNum = colNum;
             document.getElementById('hero-modal-title').innerText = "EDITAR COLUMNA HERO " + colNum;
             document.getElementById('edit-hero-file').value = '';
+            document.getElementById('hero-mod-title').value = document.getElementById('text-col' + colNum + '-title').innerText;
+            const subElem = document.getElementById('text-col' + colNum + '-sub');
+            document.getElementById('hero-mod-sub').value = subElem ? subElem.innerText : '';
             tempHeroImgBase64 = null;
             heroModal.classList.add('active');
         }
@@ -537,69 +694,225 @@
         });
 
         function applyHeroChanges() {
-            if (!currentHeroColNum || !tempHeroImgBase64) return;
+            if (!currentHeroColNum) return;
             const targetCol = document.getElementById('hero-col-' + currentHeroColNum);
-            if (targetCol) {
+            const newTitle = document.getElementById('hero-mod-title').value;
+            const newSub = document.getElementById('hero-mod-sub').value;
+            const chosenFont = document.getElementById('hero-mod-font').value;
+
+            if (tempHeroImgBase64) {
                 targetCol.style.backgroundImage = `url('${tempHeroImgBase64}')`;
+                targetCol.dataset.customBg = tempHeroImgBase64;
             }
+            
+            const titleElem = document.getElementById('text-col' + currentHeroColNum + '-title');
+            if(titleElem) {
+                titleElem.innerText = newTitle;
+                titleElem.style.fontFamily = chosenFont;
+            }
+            
+            const subElem = document.getElementById('text-col' + currentHeroColNum + '-sub');
+            if(subElem) {
+                subElem.innerText = newSub;
+                subElem.style.fontFamily = chosenFont;
+            }
+
             closeHeroModal();
+            saveAllSettings();
         }
 
-        // --- 5. BOTÓN MAESTRO: GUARDAR EN LOCALSTORAGE ---
+        // --- 5. LÓGICA MODAL COLUMNAS INFO (FONDO CREMA) ---
+        let currentInfoColNum = null;
+        const infoModal = document.getElementById('edit-info-modal');
+
+        function openInfoModal(colNum) {
+            currentInfoColNum = colNum;
+            document.getElementById('info-modal-title').innerText = "EDITAR COLUMNA INFO " + colNum;
+            document.getElementById('info-mod-title').value = document.getElementById('text-info-title-' + colNum).innerText;
+            document.getElementById('info-mod-desc').value = document.getElementById('text-info-desc-' + colNum).innerText;
+            infoModal.classList.add('active');
+        }
+
+        function closeInfoModal() {
+            infoModal.classList.remove('active');
+            currentInfoColNum = null;
+        }
+
+        function applyInfoChanges() {
+            if (!currentInfoColNum) return;
+            const newTitle = document.getElementById('info-mod-title').value;
+            const newDesc = document.getElementById('info-mod-desc').value;
+            const chosenFont = document.getElementById('info-mod-font').value;
+
+            const titleElem = document.getElementById('text-info-title-' + currentInfoColNum);
+            const descElem = document.getElementById('text-info-desc-' + currentInfoColNum);
+
+            if(titleElem) {
+                titleElem.innerText = newTitle;
+                titleElem.style.fontFamily = chosenFont;
+            }
+            if(descElem) {
+                descElem.innerText = newDesc;
+                descElem.style.fontFamily = chosenFont;
+            }
+
+            closeInfoModal();
+            saveAllSettings();
+        }
+
+        // --- 6. LÓGICA NEWSLETTER ---
+        const newsModal = document.getElementById('edit-news-modal');
+        const newsFormModal = document.getElementById('newsletter-form-modal');
+
+        function openNewsModal() {
+            document.getElementById('news-mod-title').value = document.getElementById('text-news-title').innerText;
+            newsModal.classList.add('active');
+        }
+        function closeNewsModal() { newsModal.classList.remove('active'); }
+        function applyNewsChanges() {
+            document.getElementById('text-news-title').innerText = document.getElementById('news-mod-title').value;
+            closeNewsModal();
+            saveAllSettings();
+        }
+
+        function openNewsletterForm() { newsFormModal.classList.add('active'); }
+        function closeNewsletterForm() { newsFormModal.classList.remove('active'); }
+        function submitNewsletter(e) {
+            e.preventDefault();
+            const name = document.getElementById('nl-name').value;
+            const wp = document.getElementById('nl-wp').value;
+            alert(`¡Gracias ${name}! Te registraste con éxito. Te contactaremos por WhatsApp (${wp}).`);
+            closeNewsletterForm();
+        }
+
+        // --- 7. LÓGICA FOOTER ---
+        let currentFooterCol = null;
+        const footerModal = document.getElementById('edit-footer-modal');
+
+        function openFooterModal(colNum) {
+            currentFooterCol = colNum;
+            document.getElementById('footer-modal-title').innerText = "EDITAR COLUMNA FOOTER " + colNum;
+            const colElem = document.getElementById('footer-col-' + colNum);
+            // Extraer enlaces y títulos internos excluyendo el botón de edición
+            const clone = colElem.cloneNode(true);
+            const btn = clone.querySelector('.edit-footer-btn');
+            if(btn) btn.remove();
+            document.getElementById('footer-mod-html').value = clone.innerHTML;
+            footerModal.classList.add('active');
+        }
+
+        function closeFooterModal() {
+            footerModal.classList.remove('active');
+            currentFooterCol = null;
+        }
+
+        function applyFooterChanges() {
+            if (!currentFooterCol) return;
+            const newHtml = document.getElementById('footer-mod-html').value;
+            const colElem = document.getElementById('footer-col-' + currentFooterCol);
+            
+            // Mantener el botón de edición y actualizar el resto del contenido
+            const editBtnHtml = colElem.querySelector('.edit-footer-btn').outerHTML;
+            colElem.innerHTML = editBtnHtml + newHtml;
+            
+            closeFooterModal();
+            saveAllSettings();
+        }
+
+        // --- 8. SISTEMA DE PERSISTENCIA MAESTRA (LOCALSTORAGE) ---
         function saveAllSettings() {
             const settings = {
-                fubBar: document.getElementById('edit-fub-bar').value,
-                col1Title: document.getElementById('edit-col1-title').value,
-                wpNum: document.getElementById('edit-wp-num').value,
-                logoSize: document.getElementById('edit-logo-size').value,
-                headerPad: document.getElementById('edit-header-pad').value,
-                logoSrc: logoTrigger.dataset.customLogo || logoTrigger.src
+                fubBar: document.getElementById('fub-bar').innerText,
+                wpNum: document.querySelector('.wp-float').href.replace('https://wa.me/', ''),
+                logoSize: logoTrigger.style.height,
+                headerPad: mainHeader.style.padding,
+                logoSrc: logoTrigger.dataset.customLogo || logoTrigger.src,
+                
+                // Hero Data
+                hero1Title: document.getElementById('text-col1-title').innerText,
+                hero1Sub: document.getElementById('text-col1-sub').innerText,
+                hero1Bg: document.getElementById('hero-col-1').style.backgroundImage,
+                hero1Font: document.getElementById('text-col1-title').style.fontFamily,
+
+                hero2Title: document.getElementById('text-col2-title').innerText,
+                hero2Sub: document.getElementById('text-col2-sub').innerText,
+                hero2Bg: document.getElementById('hero-col-2').style.backgroundImage,
+                hero2Font: document.getElementById('text-col2-title').style.fontFamily,
+
+                hero3Title: document.getElementById('text-col3-title').innerText,
+                hero3Sub: document.getElementById('text-col3-sub').innerText,
+                hero3Bg: document.getElementById('hero-col-3').style.backgroundImage,
+                hero3Font: document.getElementById('text-col3-title').style.fontFamily,
+
+                // Info Section Data
+                info1Title: document.getElementById('text-info-title-1').innerText,
+                info1Desc: document.getElementById('text-info-desc-1').innerText,
+                info1Font: document.getElementById('text-info-title-1').style.fontFamily,
+
+                info2Title: document.getElementById('text-info-title-2').innerText,
+                info2Desc: document.getElementById('text-info-desc-2').innerText,
+                info2Font: document.getElementById('text-info-title-2').style.fontFamily,
+
+                // Newsletter & Footer
+                newsTitle: document.getElementById('text-news-title').innerText,
+                footer1: document.getElementById('footer-col-1').innerHTML,
+                footer2: document.getElementById('footer-col-2').innerHTML,
+                footer3: document.getElementById('footer-col-3').innerHTML,
+                footer4: document.getElementById('footer-col-4').innerHTML
             };
-            localStorage.setItem('phenom_site_settings', JSON.stringify(settings));
-            applySettings(settings);
-            
+
+            localStorage.setItem('phenom_persistent_data', JSON.stringify(settings));
+            triggerSaveToast();
+        }
+
+        function triggerSaveToast() {
             const toast = document.getElementById('toast-success');
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 3000);
         }
 
-        // --- 6. INYECCIÓN AL FRONTEND ---
-        function applySettings(settings) {
-            if(settings.fubBar) { 
-                document.getElementById('fub-bar').innerText = settings.fubBar; 
-                document.getElementById('edit-fub-bar').value = settings.fubBar;
-            }
-            if(settings.col1Title) { 
-                document.getElementById('text-col1-title').innerText = settings.col1Title; 
-                document.getElementById('edit-col1-title').value = settings.col1Title;
-            }
-            if(settings.wpNum) {
-                document.querySelector('.wp-float').href = 'https://wa.me/' + settings.wpNum;
-                document.getElementById('edit-wp-num').value = settings.wpNum;
-            }
-            if(settings.logoSize) {
-                logoTrigger.style.height = settings.logoSize + 'px';
-                document.getElementById('edit-logo-size').value = settings.logoSize;
-            }
-            if(settings.headerPad) {
-                mainHeader.style.padding = `${settings.headerPad}px 40px`;
-                document.getElementById('edit-header-pad').value = settings.headerPad;
-            }
-            if(settings.logoSrc && settings.logoSrc !== window.location.href) {
-                logoTrigger.src = settings.logoSrc;
-                logoTrigger.dataset.customLogo = settings.logoSrc;
-            }
-        }
-
-        // --- 7. CARGA AUTOMÁTICA AL ABRIR LA PÁGINA ---
+        // --- 9. CARGA AUTOMÁTICA DE DATOS PERSISTIDOS AL ABRIR ---
         window.onload = () => {
-            const saved = localStorage.getItem('phenom_site_settings');
+            const saved = localStorage.getItem('phenom_persistent_data');
             if (saved) {
-                applySettings(JSON.parse(saved));
-            } else {
-                document.getElementById('edit-fub-bar').value = document.getElementById('fub-bar').innerText;
-                document.getElementById('edit-col1-title').value = document.getElementById('text-col1-title').innerText;
-                document.getElementById('edit-wp-num').value = "59893418239";
+                const data = JSON.parse(saved);
+                if(data.fubBar) document.getElementById('fub-bar').innerText = data.fubBar;
+                if(data.wpNum) document.querySelector('.wp-float').href = 'https://wa.me/' + data.wpNum;
+                if(data.logoSize) logoTrigger.style.height = data.logoSize;
+                if(data.headerPad) mainHeader.style.padding = data.headerPad;
+                if(data.logoSrc) { logoTrigger.src = data.logoSrc; logoTrigger.dataset.customLogo = data.logoSrc; }
+
+                // Hero
+                if(data.hero1Title) document.getElementById('text-col1-title').innerText = data.hero1Title;
+                if(data.hero1Sub) document.getElementById('text-col1-sub').innerText = data.hero1Sub;
+                if(data.hero1Bg) document.getElementById('hero-col-1').style.backgroundImage = data.hero1Bg;
+                if(data.hero1Font) { document.getElementById('text-col1-title').style.fontFamily = data.hero1Font; document.getElementById('text-col1-sub').style.fontFamily = data.hero1Font; }
+
+                if(data.hero2Title) document.getElementById('text-col2-title').innerText = data.hero2Title;
+                if(data.hero2Sub) document.getElementById('text-col2-sub').innerText = data.hero2Sub;
+                if(data.hero2Bg) document.getElementById('hero-col-2').style.backgroundImage = data.hero2Bg;
+                if(data.hero2Font) { document.getElementById('text-col2-title').style.fontFamily = data.hero2Font; }
+
+                if(data.hero3Title) document.getElementById('text-col3-title').innerText = data.hero3Title;
+                if(data.hero3Sub) document.getElementById('text-col3-sub').innerText = data.hero3Sub;
+                if(data.hero3Bg) document.getElementById('hero-col-3').style.backgroundImage = data.hero3Bg;
+                if(data.hero3Font) { document.getElementById('text-col3-title').style.fontFamily = data.hero3Font; document.getElementById('text-col3-sub').style.fontFamily = data.hero3Font; }
+
+                // Info Sections
+                if(data.info1Title) document.getElementById('text-info-title-1').innerText = data.info1Title;
+                if(data.info1Desc) document.getElementById('text-info-desc-1').innerText = data.info1Desc;
+                if(data.info1Font) { document.getElementById('text-info-title-1').style.fontFamily = data.info1Font; document.getElementById('text-info-desc-1').style.fontFamily = data.info1Font; }
+
+                if(data.info2Title) document.getElementById('text-info-title-2').innerText = data.info2Title;
+                if(data.info2Desc) document.getElementById('text-info-desc-2').innerText = data.info2Desc;
+                if(data.info2Font) { document.getElementById('text-info-title-2').style.fontFamily = data.info2Font; document.getElementById('text-info-desc-2').style.fontFamily = data.info2Font; }
+
+                // Newsletter & Footer
+                if(data.newsTitle) document.getElementById('text-news-title').innerText = data.newsTitle;
+                if(data.footer1) document.getElementById('footer-col-1').innerHTML = data.footer1;
+                if(data.footer2) document.getElementById('footer-col-2').innerHTML = data.footer2;
+                if(data.footer3) document.getElementById('footer-col-3').innerHTML = data.footer3;
+                if(data.footer4) document.getElementById('footer-col-4').innerHTML = data.footer4;
             }
         };
     </script>
