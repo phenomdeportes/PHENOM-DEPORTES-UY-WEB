@@ -65,7 +65,7 @@
         .card-title { font-size: 13px; color: #000; font-weight: 400; margin-bottom: 3px; }
         .card-category { font-size: 13px; color: #767677; }
 
-        /* --- MODO ADMINISTRADOR (VISIBILIDAD CONTROLADA) --- */
+        /* --- MODO ADMINISTRADOR --- */
         .admin-only { display: none; }
         body.admin-mode .admin-only { display: block; }
         body.admin-mode .admin-flex { display: flex; }
@@ -150,7 +150,7 @@
         .btn-save:hover { background: #333; }
         .btn-close { background: #e00; color: #fff; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; float: right; }
         
-        /* --- MODAL DE EDICIÓN SIMPLE --- */
+        /* --- MODALES --- */
         .simple-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center; }
         .simple-modal-overlay.active { display: flex; }
         .simple-modal-content { background: #fff; padding: 30px; width: 380px; border: 2px solid #000; position: relative; max-height: 90vh; overflow-y: auto; }
@@ -243,9 +243,9 @@
                 <button class="arrow-btn">❯</button>
             </div>
         </div>
-        <div class="carousel-track">
+        <div class="carousel-track" id="carousel-track-container">
             
-            <div class="card-mini">
+            <div class="card-mini" id="product-card-1">
                 <button class="edit-card-btn admin-only" onclick="openEditModal(this)">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -258,7 +258,7 @@
                 </div>
             </div>
 
-            <div class="card-mini">
+            <div class="card-mini" id="product-card-2">
                 <button class="edit-card-btn admin-only" onclick="openEditModal(this)">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -271,7 +271,7 @@
                 </div>
             </div>
 
-            <div class="card-mini">
+            <div class="card-mini" id="product-card-3">
                 <button class="edit-card-btn admin-only" onclick="openEditModal(this)">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -284,7 +284,7 @@
                 </div>
             </div>
 
-            <div class="card-mini">
+            <div class="card-mini" id="product-card-4">
                 <button class="edit-card-btn admin-only" onclick="openEditModal(this)">Editar</button>
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -614,7 +614,7 @@
             }
         });
 
-        // --- 3. LÓGICA MODAL DE EDICIÓN DE CARRUSEL ---
+        // --- 3. LÓGICA MODAL DE EDICIÓN DE CARRUSEL (CON PERSISTENCIA) ---
         let currentEditingCard = null;
         const editModal = document.getElementById('edit-product-modal');
         let tempNewImgBase64 = null;
@@ -658,7 +658,7 @@
             if(newPrice) currentEditingCard.querySelector('.card-price-tag').innerText = newPrice;
             
             closeEditModal();
-            triggerSaveToast();
+            saveAllSettings(); // Guarda automáticamente todo incluyendo el carrusel
         }
 
         // --- 4. LÓGICA MODAL DE HERO (3 COLUMNAS + FUENTES) ---
@@ -793,7 +793,6 @@
             currentFooterCol = colNum;
             document.getElementById('footer-modal-title').innerText = "EDITAR COLUMNA FOOTER " + colNum;
             const colElem = document.getElementById('footer-col-' + colNum);
-            // Extraer enlaces y títulos internos excluyendo el botón de edición
             const clone = colElem.cloneNode(true);
             const btn = clone.querySelector('.edit-footer-btn');
             if(btn) btn.remove();
@@ -810,16 +809,13 @@
             if (!currentFooterCol) return;
             const newHtml = document.getElementById('footer-mod-html').value;
             const colElem = document.getElementById('footer-col-' + currentFooterCol);
-            
-            // Mantener el botón de edición y actualizar el resto del contenido
             const editBtnHtml = colElem.querySelector('.edit-footer-btn').outerHTML;
             colElem.innerHTML = editBtnHtml + newHtml;
-            
             closeFooterModal();
             saveAllSettings();
         }
 
-        // --- 8. SISTEMA DE PERSISTENCIA MAESTRA (LOCALSTORAGE) ---
+        // --- 8. SISTEMA DE PERSISTENCIA MAESTRA (LOCALSTORAGE INCLUYENDO CARRUSEL) ---
         function saveAllSettings() {
             const settings = {
                 fubBar: document.getElementById('fub-bar').innerText,
@@ -858,7 +854,10 @@
                 footer1: document.getElementById('footer-col-1').innerHTML,
                 footer2: document.getElementById('footer-col-2').innerHTML,
                 footer3: document.getElementById('footer-col-3').innerHTML,
-                footer4: document.getElementById('footer-col-4').innerHTML
+                footer4: document.getElementById('footer-col-4').innerHTML,
+
+                // Carrusel HTML Completo (Guarda imágenes, títulos y precios editados)
+                carouselHtml: document.getElementById('carousel-track-container').innerHTML
             };
 
             localStorage.setItem('phenom_persistent_data', JSON.stringify(settings));
@@ -913,6 +912,9 @@
                 if(data.footer2) document.getElementById('footer-col-2').innerHTML = data.footer2;
                 if(data.footer3) document.getElementById('footer-col-3').innerHTML = data.footer3;
                 if(data.footer4) document.getElementById('footer-col-4').innerHTML = data.footer4;
+
+                // Carrusel
+                if(data.carouselHtml) document.getElementById('carousel-track-container').innerHTML = data.carouselHtml;
             }
         };
     </script>
