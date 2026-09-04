@@ -9,369 +9,91 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
         body { overflow-x: hidden; background: #fff; }
 
-        /* --- BARRA SUPERIOR (ANUNCIOS) --- */
-        .top-bar {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
+        /* --- BARRA SUPERIOR --- */
+        .top-bar { background-color: #000; color: #fff; text-align: center; padding: 10px; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
 
         /* --- HEADER PRINCIPAL --- */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            background: #fff;
-            border-bottom: 1px solid #eaeaea;
-        }
-        
-        /* LOGO CON TRIGGER OCULTO */
-        .logo-container img {
-            height: 45px;
-            cursor: pointer;
-        }
-
-        /* NAVEGACIÓN CENTRO */
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #000;
-            font-weight: 700;
-            font-size: 13px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #fff; border-bottom: 1px solid #eaeaea; }
+        .logo-container img { height: 45px; cursor: pointer; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: #000; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
         .nav-links a:hover { color: #666; }
         .nav-links a.highlight { color: #e00; }
-
-        /* ICONOS DERECHA */
-        .header-icons {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .search-box {
-            background: #f0f0f0;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-size: 13px;
-            width: 180px;
-            outline: none;
-        }
+        .header-icons { display: flex; align-items: center; gap: 20px; }
+        .search-box { background: #f0f0f0; border: none; padding: 10px 15px; border-radius: 4px; font-size: 13px; width: 180px; outline: none; }
         .icon { font-size: 20px; cursor: pointer; }
 
-        /* --- HERO SECTION (GRILLA 3 COLUMNAS) --- */
-        .hero-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            height: 85vh;
-        }
-
-        .hero-col {
-            position: relative;
-            background-color: #111;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-        }
-
-        .hero-col::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            width: 100%;
-        }
-
-        .hero-title {
-            font-size: 2.8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-        }
-
-        /* BOTÓN DE ACCIÓN */
-        .btn-comprar {
-            display: inline-flex;
-            align-items: center;
-            background: #fff;
-            color: #000;
-            padding: 15px 30px;
-            font-weight: 900;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-        .btn-comprar:hover {
-            background: #000;
-            color: #fff;
-        }
+        /* --- HERO SECTION --- */
+        .hero-grid { display: grid; grid-template-columns: repeat(3, 1fr); height: 85vh; }
+        .hero-col { position: relative; background-color: #111; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #fff; }
+        .hero-col::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
+        .hero-content { position: relative; z-index: 1; padding: 20px; width: 100%; }
+        .hero-title { font-size: 2.8rem; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+        .hero-subtitle { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin-bottom: 25px; }
+        .btn-comprar { display: inline-flex; align-items: center; background: #fff; color: #000; padding: 15px 30px; font-weight: 900; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .btn-comprar:hover { background: #000; color: #fff; }
 
         /* --- CARRUSEL HORIZONTAL --- */
-        .carousel-section {
-            padding: 40px;
-            background: #fff;
-            max-width: 100vw;
-        }
-
-        .carousel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .carousel-tabs button {
-            background: none;
-            border: 1px solid transparent;
-            font-size: 16px;
-            font-weight: 900;
-            padding: 10px 20px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-        .carousel-tabs button.active {
-            background: #000;
-            color: #fff;
-            border: 1px solid #000;
-        }
-        .carousel-tabs button:not(.active) {
-            border: 1px solid #000;
-            margin-left: 10px;
-        }
-
-        .carousel-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .view-all {
-            color: #000;
-            text-decoration: underline;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .arrow-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .carousel-track {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding-bottom: 20px;
-        }
+        .carousel-section { padding: 40px; background: #fff; max-width: 100vw; }
+        .carousel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; }
+        .carousel-tabs button { background: none; border: 1px solid transparent; font-size: 16px; font-weight: 900; padding: 10px 20px; cursor: pointer; text-transform: uppercase; }
+        .carousel-tabs button.active { background: #000; color: #fff; border: 1px solid #000; }
+        .carousel-tabs button:not(.active) { border: 1px solid #000; margin-left: 10px; }
+        .carousel-actions { display: flex; align-items: center; gap: 15px; }
+        .view-all { color: #000; text-decoration: underline; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
+        .carousel-track { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; }
         .carousel-track::-webkit-scrollbar { display: none; }
+        .card-mini { min-width: 280px; max-width: 280px; flex-shrink: 0; cursor: pointer; }
+        .card-img-container { position: relative; background: #f4f4f4; height: 280px; display: flex; justify-content: center; align-items: center; }
+        .card-img-container img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .heart-icon { position: absolute; top: 15px; right: 15px; font-size: 20px; color: #000; }
+        .card-price-tag { position: absolute; bottom: 0; left: 10px; background: #fff; padding: 5px 10px; font-weight: 900; font-size: 14px; }
+        .card-info { padding-top: 15px; }
+        .card-title { font-size: 13px; color: #000; font-weight: 400; margin-bottom: 3px; }
+        .card-category { font-size: 13px; color: #767677; }
 
-        .card-mini {
-            min-width: 280px;
-            max-width: 280px;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-        .card-mini:hover .card-title { text-decoration: underline; }
-
-        .card-img-container {
-            position: relative;
-            background: #f4f4f4;
-            height: 280px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .card-img-container img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-        .heart-icon {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 20px;
-            color: #000;
-        }
-        .card-price-tag {
-            position: absolute;
-            bottom: 0;
-            left: 10px;
-            background: #fff;
-            padding: 5px 10px;
-            font-weight: 900;
-            font-size: 14px;
-        }
-
-        .card-info {
-            padding-top: 15px;
-        }
-        .card-title {
-            font-size: 13px;
-            color: #000;
-            font-weight: 400;
-            margin-bottom: 3px;
-        }
-        .card-category {
-            font-size: 13px;
-            color: #767677;
-        }
-
-        /* --- SECCIÓN INFO MARCA (2 COLUMNAS) --- */
-        .info-section {
-            background-color: #f4f4ec;
-            padding: 80px 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            color: #000;
-        }
-
-        .info-column h2 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            letter-spacing: -0.5px;
-        }
-
-        .info-column p {
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            color: #111;
-        }
-
-        @media (max-width: 768px) {
-            .info-section {
-                grid-template-columns: 1fr;
-                padding: 40px 20px;
-                gap: 40px;
-            }
-        }
+        /* --- SECCIÓN INFO MARCA --- */
+        .info-section { background-color: #f4f4ec; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; color: #000; }
+        .info-column h2 { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin-bottom: 25px; letter-spacing: -0.5px; }
+        .info-column p { font-size: 14px; line-height: 1.7; margin-bottom: 15px; color: #111; }
 
         /* --- BARRA NEWSLETTER --- */
-        .newsletter-bar {
-            background-color: #ede734;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-        }
-        .newsletter-bar h2 {
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            color: #000;
-        }
-        .btn-register {
-            background-color: #000;
-            color: #fff;
-            padding: 15px 30px;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-decoration: none;
-            font-size: 14px;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .btn-register:hover {
-            background-color: #333;
-        }
+        .newsletter-bar { background-color: #ede734; padding: 40px 20px; display: flex; justify-content: center; align-items: center; gap: 30px; }
+        .newsletter-bar h2 { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #000; }
+        .btn-register { background-color: #000; color: #fff; padding: 15px 30px; font-weight: 900; text-transform: uppercase; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-register:hover { background-color: #333; }
 
         /* --- FOOTER PRINCIPAL --- */
-        .footer {
-            background-color: #fff;
-            padding: 60px 40px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr) 0.5fr; /* 5 columnas */
-            gap: 30px;
-            color: #000;
-            border-top: 1px solid #eaeaea;
-        }
-        .footer-col h3 {
-            font-size: 14px;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .footer-col a {
-            display: block;
-            color: #333;
-            text-decoration: none;
-            font-size: 13px;
-            margin-bottom: 12px;
-        }
-        .footer-col a:hover {
-            text-decoration: underline;
-            color: #000;
-        }
-        .ssl-badge {
-            margin-top: 5px;
-            width: 50px;
-        }
-
-        @media (max-width: 768px) {
-            .footer { grid-template-columns: repeat(2, 1fr); }
-            .newsletter-bar { flex-direction: column; text-align: center; }
-        }
+        .footer { background-color: #fff; padding: 60px 40px; display: grid; grid-template-columns: repeat(4, 1fr) 0.5fr; gap: 30px; color: #000; border-top: 1px solid #eaeaea; }
+        .footer-col h3 { font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-col a { display: block; color: #333; text-decoration: none; font-size: 13px; margin-bottom: 12px; }
+        .footer-col a:hover { text-decoration: underline; color: #000; }
+        .ssl-badge { margin-top: 5px; width: 50px; }
 
         /* --- WHATSAPP FLOTANTE --- */
-        .wp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #000;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 100;
+        .wp-float { position: fixed; bottom: 30px; right: 30px; background: #000; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 100; }
+
+        /* --- PANEL DE EDICIÓN OCULTO --- */
+        #admin-panel { display: none; position: fixed; top: 0; right: 0; width: 350px; height: 100vh; background: #f4f4f4; border-left: 2px solid #000; padding: 20px; z-index: 9999; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.3); }
+        #admin-panel.active { display: block; }
+        .admin-header { font-weight: 900; font-size: 16px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 10px;}
+        .admin-group { margin-bottom: 15px; }
+        .admin-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; color: #333; }
+        .admin-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline: none; }
+        .btn-save { background: #000; color: #fff; width: 100%; padding: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; letter-spacing: 1px; }
+        .btn-save:hover { background: #333; }
+        .btn-close { background: #e00; color: #fff; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; float: right; }
+        
+        /* CUADRO DE ÉXITO FLOTANTE */
+        #toast-success { position: fixed; top: 20px; right: 20px; background: #000; color: #ede734; padding: 15px 25px; font-weight: 900; border-radius: 4px; z-index: 10000; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-transform: uppercase; font-size: 12px; border: 1px solid #ede734; }
+
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; height: auto; }
+            .hero-col { height: 400px; }
+            .info-section { grid-template-columns: 1fr; padding: 40px 20px; }
+            .footer { grid-template-columns: repeat(2, 1fr); }
+            .newsletter-bar { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -413,13 +135,11 @@
                 <a href="#" class="btn-comprar">COMPRAR AHORA →</a>
             </div>
         </div>
-
         <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1596356453261-0d265eb26d43?q=80&w=800');">
             <div class="hero-content">
                 <h1 class="hero-title" id="text-col2-title">THE ORIGINAL</h1>
             </div>
         </div>
-
         <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=800');">
             <div class="hero-content">
                 <h1 class="hero-title" id="text-col3-title">SPARRING PRO</h1>
@@ -441,9 +161,7 @@
                 <button class="arrow-btn">❯</button>
             </div>
         </div>
-        
         <div class="carousel-track">
-            <!-- Producto 1 -->
             <div class="card-mini">
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -455,8 +173,6 @@
                     <p class="card-category">Unisex</p>
                 </div>
             </div>
-
-            <!-- Producto 2 -->
             <div class="card-mini">
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -468,8 +184,6 @@
                     <p class="card-category">Unisex</p>
                 </div>
             </div>
-
-            <!-- Producto 3 -->
             <div class="card-mini">
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -481,8 +195,6 @@
                     <p class="card-category">Protección</p>
                 </div>
             </div>
-            
-            <!-- Producto 4 -->
             <div class="card-mini">
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
@@ -497,7 +209,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN INFO BOXEO (2 COLUMNAS) -->
+    <!-- SECCIÓN INFO BOXEO -->
     <section class="info-section">
         <div class="info-column">
             <h2 id="text-info-title-1">HISTORIA, COMBATE Y EQUIPAMIENTO PHENOM</h2>
@@ -530,7 +242,6 @@
             <a href="#">Kickboxing</a>
             <a href="#">Muay Thai</a>
             <a href="#">Fitness</a>
-            
             <h3 style="margin-top: 30px;">COLECCIONES</h3>
             <a href="#">Phenom Elite</a>
             <a href="#">Phenom Pro</a>
@@ -548,20 +259,111 @@
             <h3>INFORMACIÓN DE LA EMPRESA</h3>
             <a href="#">Trabaja con Nosotros</a>
             <a href="#">Información Corporativa</a>
-            
             <h3 style="margin-top: 30px;">TIENDAS</h3>
             <a href="#">Puntos de Retiro (Óptica)</a>
         </div>
         <div class="footer-col">
-            <!-- Sello SSL -->
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/SSL_Secured.svg/120px-SSL_Secured.svg.png" alt="Sitio Seguro SSL" class="ssl-badge">
         </div>
     </footer>
 
     <!-- WHATSAPP FLOTANTE -->
-    <a href="https://wa.me/59899659481" class="wp-float" target="_blank">
-        ✆
-    </a>
+    <a href="https://wa.me/59899659481" class="wp-float" target="_blank">✆</a>
 
+    <!-- PANEL DE EDICIÓN OCULTO -->
+    <div id="admin-panel">
+        <button class="btn-close" onclick="document.getElementById('admin-panel').classList.remove('active')">X</button>
+        <div class="admin-header">Control Omega</div>
+        
+        <div class="admin-group">
+            <label>Texto Barra Superior</label>
+            <input type="text" id="edit-fub-bar">
+        </div>
+        <div class="admin-group">
+            <label>Título Columna 1 (Hero)</label>
+            <input type="text" id="edit-col1-title">
+        </div>
+        <div class="admin-group">
+            <label>Subtítulo Columna 1</label>
+            <input type="text" id="edit-col1-sub">
+        </div>
+        <div class="admin-group">
+            <label>Título Sección SEO 1</label>
+            <input type="text" id="edit-info-title-1">
+        </div>
+        
+        <button class="btn-save" onclick="saveAllSettings()">GUARDAR CAMBIOS</button>
+    </div>
+
+    <!-- NOTIFICACIÓN DE ÉXITO -->
+    <div id="toast-success">¡CAMBIOS GUARDADOS CON ÉXITO! ✓</div>
+
+    <!-- SCRIPT DE MOTOR LÓGICO -->
+    <script>
+        // --- 1. LÓGICA GATILLO: 5 TOQUES EN LOGO ---
+        let clickCount = 0;
+        let clickTimer;
+        const logoTrigger = document.getElementById('logo-trigger');
+        const adminPanel = document.getElementById('admin-panel');
+
+        logoTrigger.addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
+            if (clickCount === 5) {
+                adminPanel.classList.add('active');
+                clickCount = 0; 
+            } else {
+                clickTimer = setTimeout(() => { clickCount = 0; }, 2000); 
+            }
+        });
+
+        // --- 2. BOTÓN MAESTRO: GUARDAR EN LOCALSTORAGE ---
+        function saveAllSettings() {
+            const settings = {
+                fubBar: document.getElementById('edit-fub-bar').value,
+                col1Title: document.getElementById('edit-col1-title').value,
+                col1Sub: document.getElementById('edit-col1-sub').value,
+                infoTitle1: document.getElementById('edit-info-title-1').value
+            };
+            localStorage.setItem('phenom_site_settings', JSON.stringify(settings));
+            applySettings(settings);
+            const toast = document.getElementById('toast-success');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
+        // --- 3. INYECCIÓN AL FRONTEND ---
+        function applySettings(settings) {
+            if(settings.fubBar) { 
+                document.getElementById('fub-bar').innerText = settings.fubBar; 
+                document.getElementById('edit-fub-bar').value = settings.fubBar;
+            }
+            if(settings.col1Title) { 
+                document.getElementById('text-col1-title').innerText = settings.col1Title; 
+                document.getElementById('edit-col1-title').value = settings.col1Title;
+            }
+            if(settings.col1Sub) { 
+                document.getElementById('text-col1-sub').innerText = settings.col1Sub; 
+                document.getElementById('edit-col1-sub').value = settings.col1Sub;
+            }
+            if(settings.infoTitle1) { 
+                document.getElementById('text-info-title-1').innerText = settings.infoTitle1; 
+                document.getElementById('edit-info-title-1').value = settings.infoTitle1;
+            }
+        }
+
+        // --- 4. CARGA AUTOMÁTICA AL ABRIR LA PÁGINA ---
+        window.onload = () => {
+            const saved = localStorage.getItem('phenom_site_settings');
+            if (saved) {
+                applySettings(JSON.parse(saved));
+            } else {
+                document.getElementById('edit-fub-bar').value = document.getElementById('fub-bar').innerText;
+                document.getElementById('edit-col1-title').value = document.getElementById('text-col1-title').innerText;
+                document.getElementById('edit-col1-sub').value = document.getElementById('text-col1-sub').innerText;
+                document.getElementById('edit-info-title-1').value = document.getElementById('text-info-title-1').innerText;
+            }
+        };
+    </script>
 </body>
 </html>
