@@ -13,16 +13,12 @@
         .top-bar { background-color: #000; color: #fff; text-align: center; padding: 10px; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
 
         /* --- HEADER PRINCIPAL --- */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #fff; border-bottom: 1px solid #eaeaea; transition: padding 0.3s ease; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #fff; border-bottom: 1px solid #eaeaea; }
         .logo-container img { height: 45px; cursor: pointer; transition: all 0.3s ease; }
-        
-        /* NAVEGACIÓN */
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-item-container { position: relative; display: flex; align-items: center; gap: 5px; }
+        .nav-links { display: flex; gap: 25px; }
         .nav-links a { text-decoration: none; color: #000; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
         .nav-links a:hover { color: #666; }
-        .btn-nav-add { display: none; background: #000; color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 12px; font-weight: bold; cursor: pointer; align-items: center; justify-content: center; }
-        
+        .nav-links a.highlight { color: #e00; }
         .header-icons { display: flex; align-items: center; gap: 20px; }
         .search-box { background: #f0f0f0; border: none; padding: 10px 15px; border-radius: 4px; font-size: 13px; width: 180px; outline: none; }
         .icon { font-size: 20px; cursor: pointer; }
@@ -42,46 +38,86 @@
         .carousel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; }
         .carousel-tabs button { background: none; border: 1px solid transparent; font-size: 16px; font-weight: 900; padding: 10px 20px; cursor: pointer; text-transform: uppercase; }
         .carousel-tabs button.active { background: #000; color: #fff; border: 1px solid #000; }
+        .carousel-tabs button:not(.active) { border: 1px solid #000; margin-left: 10px; }
         .carousel-actions { display: flex; align-items: center; gap: 15px; }
         .view-all { color: #000; text-decoration: underline; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
         .carousel-track { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; align-items: stretch; }
         .carousel-track::-webkit-scrollbar { display: none; }
         .card-mini { min-width: 280px; max-width: 280px; flex-shrink: 0; cursor: pointer; position: relative; }
         .card-img-container { position: relative; background: #f4f4f4; height: 280px; display: flex; justify-content: center; align-items: center; }
         .card-img-container img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .heart-icon { position: absolute; top: 15px; right: 15px; font-size: 20px; color: #000; }
         .card-price-tag { position: absolute; bottom: 0; left: 10px; background: #fff; padding: 5px 10px; font-weight: 900; font-size: 14px; }
         .card-info { padding-top: 15px; }
         .card-title { font-size: 13px; color: #000; font-weight: 400; margin-bottom: 3px; }
-        .card-sizes { font-size: 11px; color: #666; margin-top: 5px; font-weight: bold; }
+        .card-category { font-size: 13px; color: #767677; }
 
         /* --- MODO ADMINISTRADOR (VISIBILIDAD CONTROLADA) --- */
         .admin-only { display: none; }
         body.admin-mode .admin-only { display: block; }
         body.admin-mode .admin-flex { display: flex; }
-        body.admin-mode .btn-nav-add { display: flex; }
 
-        .edit-card-btn { position: absolute; top: 10px; left: 10px; z-index: 10; background: #e00; color: #fff; border: none; padding: 5px 10px; font-size: 11px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        /* BOTONES DE EDICIÓN EN PRODUCTOS */
+        .edit-card-btn {
+            position: absolute; top: 10px; left: 10px; z-index: 10;
+            background: #e00; color: #fff; border: none; padding: 5px 10px;
+            font-size: 11px; font-weight: bold; cursor: pointer;
+            text-transform: uppercase;
+        }
 
-        /* --- PANEL DE EDICIÓN OCULTO (MÓDULO OMEGA) --- */
+        /* TARJETA NUEVO PRODUCTO */
+        .add-product-card {
+            min-width: 280px; max-width: 280px; flex-shrink: 0;
+            background: #f9f9f9; border: 2px dashed #000; cursor: pointer;
+            display: none; justify-content: center; align-items: center;
+            height: 355px; transition: background 0.3s;
+        }
+        .add-product-card:hover { background: #eaeaea; }
+        .add-product-card span { font-size: 16px; font-weight: 900; color: #000; }
+
+        /* --- SECCIÓN INFO MARCA --- */
+        .info-section { background-color: #f4f4ec; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; color: #000; }
+        .info-column h2 { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin-bottom: 25px; letter-spacing: -0.5px; }
+        .info-column p { font-size: 14px; line-height: 1.7; margin-bottom: 15px; color: #111; }
+
+        /* --- BARRA NEWSLETTER --- */
+        .newsletter-bar { background-color: #ede734; padding: 40px 20px; display: flex; justify-content: center; align-items: center; gap: 30px; }
+        .newsletter-bar h2 { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #000; }
+        .btn-register { background-color: #000; color: #fff; padding: 15px 30px; font-weight: 900; text-transform: uppercase; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-register:hover { background-color: #333; }
+
+        /* --- FOOTER PRINCIPAL --- */
+        .footer { background-color: #fff; padding: 60px 40px; display: grid; grid-template-columns: repeat(4, 1fr) 0.5fr; gap: 30px; color: #000; border-top: 1px solid #eaeaea; }
+        .footer-col h3 { font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-col a { display: block; color: #333; text-decoration: none; font-size: 13px; margin-bottom: 12px; }
+        .footer-col a:hover { text-decoration: underline; color: #000; }
+        .ssl-badge { margin-top: 5px; width: 50px; }
+
+        /* --- WHATSAPP FLOTANTE --- */
+        .wp-float { position: fixed; bottom: 30px; right: 30px; background: #000; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 100; }
+
+        /* --- PANEL DE EDICIÓN OCULTO --- */
         #admin-panel { display: none; position: fixed; top: 0; right: 0; width: 350px; height: 100vh; background: #f4f4f4; border-left: 2px solid #000; padding: 20px; z-index: 9999; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.3); }
         #admin-panel.active { display: block; }
         .admin-header { font-weight: 900; font-size: 16px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 10px;}
         .admin-group { margin-bottom: 15px; }
         .admin-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; color: #333; }
         .admin-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline: none; }
-        .btn-save { background: #000; color: #fff; width: 100%; padding: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .btn-save { background: #000; color: #fff; width: 100%; padding: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; letter-spacing: 1px; }
+        .btn-save:hover { background: #333; }
         .btn-close { background: #e00; color: #fff; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; float: right; }
-        #toast-success { position: fixed; top: 20px; right: 20px; background: #000; color: #ede734; padding: 15px 25px; font-weight: 900; border-radius: 4px; z-index: 10000; display: none; text-transform: uppercase; font-size: 12px; }
-
-        /* --- MODAL DE PRODUCTO (EDICIÓN / NUEVO) --- */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center; }
-        .modal-overlay.active { display: flex; }
-        .modal-content { background: #fff; padding: 30px; width: 400px; max-width: 90%; border-radius: 0; border: 2px solid #000; position: relative; }
-        .modal-title { font-weight: 900; font-size: 18px; text-transform: uppercase; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-        .modal-close { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 20px; font-weight: bold; cursor: pointer; }
         
-        .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 5px; }
-        .size-item { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: bold; }
+        /* CUADRO DE ÉXITO FLOTANTE */
+        #toast-success { position: fixed; top: 20px; right: 20px; background: #000; color: #ede734; padding: 15px 25px; font-weight: 900; border-radius: 4px; z-index: 10000; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-transform: uppercase; font-size: 12px; border: 1px solid #ede734; }
+
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; height: auto; }
+            .hero-col { height: 400px; }
+            .info-section { grid-template-columns: 1fr; padding: 40px 20px; }
+            .footer { grid-template-columns: repeat(2, 1fr); }
+            .newsletter-bar { flex-direction: column; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -92,59 +128,184 @@
     </div>
 
     <!-- HEADER -->
-    <header class="header" id="main-header">
+    <header class="header">
         <div class="logo-container">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2560px-Adidas_Logo.svg.png" alt="Logo" id="logo-trigger">
         </div>
         
         <nav class="nav-links">
-            <div class="nav-item-container">
-                <a href="#">Protectores</a>
-                <button class="btn-nav-add" onclick="openProductModal('Protectores')">+</button>
-            </div>
-            <div class="nav-item-container">
-                <a href="#">Accesorios</a>
-                <button class="btn-nav-add" onclick="openProductModal('Accesorios')">+</button>
-            </div>
-            <div class="nav-item-container">
-                <a href="#">Implementos</a>
-                <button class="btn-nav-add" onclick="openProductModal('Implementos')">+</button>
-            </div>
-            <div class="nav-item-container">
-                <a href="#">Packs</a>
-                <button class="btn-nav-add" onclick="openProductModal('Packs')">+</button>
-            </div>
+            <a href="#">Guantes</a>
+            <a href="#">Protección</a>
+            <a href="#">Indumentaria</a>
+            <a href="#">Tinas de Recuperación</a>
+            <a href="#" class="highlight">Sale</a>
         </nav>
 
         <div class="header-icons">
             <input type="text" class="search-box" placeholder="Buscar...">
+            <span class="icon">👤</span>
+            <span class="icon">♡</span>
             <span class="icon">🛒</span>
         </div>
     </header>
+
+    <!-- HERO SECTION (3 COLUMNAS) -->
+    <section class="hero-grid">
+        <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=800');">
+            <div class="hero-content">
+                <h1 class="hero-title" id="text-col1-title">PHENOM ELITE</h1>
+                <h2 class="hero-subtitle" id="text-col1-sub">MÁXIMA PROTECCIÓN</h2>
+                <a href="#" class="btn-comprar">COMPRAR AHORA →</a>
+            </div>
+        </div>
+        <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1596356453261-0d265eb26d43?q=80&w=800');">
+            <div class="hero-content">
+                <h1 class="hero-title" id="text-col2-title">THE ORIGINAL</h1>
+            </div>
+        </div>
+        <div class="hero-col" style="background-image: url('https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=800');">
+            <div class="hero-content">
+                <h1 class="hero-title" id="text-col3-title">SPARRING PRO</h1>
+                <h2 class="hero-subtitle" id="text-col3-sub">ONZAS PRECISAS</h2>
+            </div>
+        </div>
+    </section>
 
     <!-- CARRUSEL DE PRODUCTOS -->
     <section class="carousel-section">
         <div class="carousel-header">
             <div class="carousel-tabs">
-                <button class="active">Inventario Actual</button>
+                <button class="active">Novedades</button>
+                <button>Equipamiento</button>
+            </div>
+            <div class="carousel-actions">
+                <a href="#" class="view-all">VER TODO</a>
+                <button class="arrow-btn">❮</button>
+                <button class="arrow-btn">❯</button>
             </div>
         </div>
-        
-        <div class="carousel-track" id="inventory-track">
-            <!-- Producto Base de Ejemplo -->
+        <div class="carousel-track">
+            
             <div class="card-mini">
-                <button class="edit-card-btn admin-only" onclick="openProductModal('Editar', this)">Editar</button>
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
                 <div class="card-img-container">
+                    <span class="heart-icon">♡</span>
                     <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=400" alt="Guante Phenom">
-                    <div class="card-price-tag" data-raw-price="2250">$ 2.250,00</div>
+                    <div class="card-price-tag">$ 2.250,00</div>
                 </div>
                 <div class="card-info">
-                    <h3 class="card-title">Guantes Boxeo Phenom Pro Violeta</h3>
-                    <p class="card-sizes">Talles: 14oz, 16oz</p>
+                    <h3 class="card-title">Guantes Boxeo Phenom Pro Violeta 14oz</h3>
+                    <p class="card-category">Unisex</p>
                 </div>
             </div>
+
+            <div class="card-mini">
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
+                <div class="card-img-container">
+                    <span class="heart-icon">♡</span>
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c6232660d02?q=80&w=400" alt="Guante Elite">
+                    <div class="card-price-tag">$ 2.070,00</div>
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Guantes Phenom Elite Azul 16oz</h3>
+                    <p class="card-category">Unisex</p>
+                </div>
+            </div>
+
+            <div class="card-mini">
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
+                <div class="card-img-container">
+                    <span class="heart-icon">♡</span>
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400" alt="Cabezal">
+                    <div class="card-price-tag">$ 2.350,00</div>
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Tibial Boxeo Phenom Sparring M</h3>
+                    <p class="card-category">Protección</p>
+                </div>
+            </div>
+
+            <div class="card-mini">
+                <button class="edit-card-btn admin-only" onclick="alert('Fase 3: Modal de edición')">Editar</button>
+                <div class="card-img-container">
+                    <span class="heart-icon">♡</span>
+                    <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=400" alt="Vendas">
+                    <div class="card-price-tag">$ 400,00</div>
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Vendas Phenom Pro 5m</h3>
+                    <p class="card-category">Accesorios</p>
+                </div>
+            </div>
+
+            <!-- TARJETA CREAR PRODUCTO (Solo visible en Módulo Omega) -->
+            <div class="add-product-card admin-only" onclick="alert('Fase 3: Modal de creación de producto')">
+                <span>+ NUEVO PRODUCTO</span>
+            </div>
+
         </div>
     </section>
+
+    <!-- SECCIÓN INFO BOXEO -->
+    <section class="info-section">
+        <div class="info-column">
+            <h2 id="text-info-title-1">HISTORIA, COMBATE Y EQUIPAMIENTO PHENOM</h2>
+            <p id="text-info-desc-1">El deporte nos mantiene alerta. Nos une y nos forja. A través del boxeo y los deportes de combate podemos cambiar vidas, inspirándote a subir al ring y superar tu mejor marca personal. Ofrecemos artículos deportivos con las últimas tecnologías para absorber el impacto y mejorar tu rendimiento en cada round. Phenom es el hogar del peleador amateur, del atleta profesional y del entusiasta del fitness que deja todo en el saco. Nuestra ropa y equipamiento te mantienen concentrado antes de que suene la campana. En el sparring, en la competencia y en la recuperación. Estamos aquí para apoyar a los verdaderos peleadores.</p>
+        </div>
+        <div class="info-column">
+            <h2 id="text-info-title-2">TU TIENDA DE DEPORTES DE COMBATE PARA CUALQUIER DESAFÍO</h2>
+            <p id="text-info-desc-2">Phenom diseña equipamiento para atletas de todo tipo. Creadores que disfrutan desafiar las convenciones y romper las normas del combate. Confeccionamos los guantes y protectores que visten a los campeones en preparación para su próxima pelea. Para que no pierdan la concentración. Diseñamos con un objetivo en mente: máxima protección y durabilidad extrema para deportes de alto impacto. Innovamos en cada costura y ponemos a prueba nuevas tecnologías, desde nuestras onzas precisas hasta el equipamiento de recuperación. A través de nuestras colecciones, eliminamos las barreras entre el diseño de vanguardia y el mejor rendimiento en el ring.</p>
+        </div>
+    </section>
+
+    <!-- BARRA NEWSLETTER -->
+    <section class="newsletter-bar">
+        <h2 id="text-news-title">SUSCRÍBETE AL NEWSLETTER</h2>
+        <a href="#" class="btn-register" id="text-news-btn">REGÍSTRATE GRATIS →</a>
+    </section>
+
+    <!-- FOOTER PRINCIPAL -->
+    <footer class="footer">
+        <div class="footer-col">
+            <h3>PRODUCTOS</h3>
+            <a href="#">Guantes de Boxeo</a>
+            <a href="#">Tibiales y Cabezales</a>
+            <a href="#">Vendas y Bucales</a>
+            <a href="#">Tinas de Recuperación</a>
+        </div>
+        <div class="footer-col">
+            <h3>DEPORTES</h3>
+            <a href="#">Boxeo</a>
+            <a href="#">Kickboxing</a>
+            <a href="#">Muay Thai</a>
+            <a href="#">Fitness</a>
+            <h3 style="margin-top: 30px;">COLECCIONES</h3>
+            <a href="#">Phenom Elite</a>
+            <a href="#">Phenom Pro</a>
+            <a href="#">Sparring Series</a>
+        </div>
+        <div class="footer-col">
+            <h3>ASISTENCIA</h3>
+            <a href="#">Contacto</a>
+            <a href="#">Preguntas Frecuentes</a>
+            <a href="#">Cambios y Devoluciones</a>
+            <a href="#">Guía de Tallas (Onzas)</a>
+            <a href="#">Políticas del Sitio Web</a>
+        </div>
+        <div class="footer-col">
+            <h3>INFORMACIÓN DE LA EMPRESA</h3>
+            <a href="#">Trabaja con Nosotros</a>
+            <a href="#">Información Corporativa</a>
+            <h3 style="margin-top: 30px;">TIENDAS</h3>
+            <a href="#">Puntos de Retiro (Óptica)</a>
+        </div>
+        <div class="footer-col">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/SSL_Secured.svg/120px-SSL_Secured.svg.png" alt="Sitio Seguro SSL" class="ssl-badge">
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/59893418239" class="wp-float" target="_blank">✆</a>
 
     <!-- PANEL DE EDICIÓN OCULTO -->
     <div id="admin-panel">
@@ -152,7 +313,7 @@
         <div class="admin-header">Control Omega</div>
         
         <div class="admin-group">
-            <label>Subir Nuevo Logo</label>
+            <label>Logo de la Marca (Subir Archivo)</label>
             <input type="file" id="edit-logo-file" accept="image/*">
         </div>
         <div class="admin-group">
@@ -160,50 +321,23 @@
             <input type="range" id="edit-logo-size" min="20" max="150" value="45">
         </div>
         <div class="admin-group">
-            <label>Altura de la Barra (Padding px)</label>
-            <input type="range" id="edit-header-pad" min="5" max="50" value="15">
+            <label>WhatsApp de Ventas (Ej: 59893418239)</label>
+            <input type="text" id="edit-wp-num" value="59893418239">
         </div>
+        <hr style="margin: 20px 0; border: 1px solid #ccc;">
         <div class="admin-group">
             <label>Texto Barra Superior</label>
             <input type="text" id="edit-fub-bar">
+        </div>
+        <div class="admin-group">
+            <label>Título Columna 1 (Hero)</label>
+            <input type="text" id="edit-col1-title">
         </div>
         
         <button class="btn-save" onclick="saveAllSettings()">GUARDAR CAMBIOS</button>
     </div>
 
-    <!-- MODAL DE CREACIÓN/EDICIÓN DE PRODUCTO -->
-    <div class="modal-overlay" id="product-modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeProductModal()">X</button>
-            <div class="modal-title" id="modal-title-text">NUEVO PRODUCTO</div>
-            
-            <div class="admin-group">
-                <label>Título del Producto</label>
-                <input type="text" id="modal-prod-title" placeholder="Ej: Guantes Phenom Elite">
-            </div>
-            <div class="admin-group">
-                <label>Precio Actual ($)</label>
-                <input type="number" id="modal-prod-price" placeholder="2250">
-            </div>
-            
-            <div class="admin-group">
-                <label>Talles / Onzas Disponibles</label>
-                <div class="size-grid">
-                    <label class="size-item"><input type="checkbox" value="S" class="size-check"> S</label>
-                    <label class="size-item"><input type="checkbox" value="M" class="size-check"> M</label>
-                    <label class="size-item"><input type="checkbox" value="L" class="size-check"> L</label>
-                    <label class="size-item"><input type="checkbox" value="8oz" class="size-check"> 8oz</label>
-                    <label class="size-item"><input type="checkbox" value="10oz" class="size-check"> 10oz</label>
-                    <label class="size-item"><input type="checkbox" value="12oz" class="size-check"> 12oz</label>
-                    <label class="size-item"><input type="checkbox" value="14oz" class="size-check"> 14oz</label>
-                    <label class="size-item"><input type="checkbox" value="16oz" class="size-check"> 16oz</label>
-                </div>
-            </div>
-
-            <button class="btn-save" onclick="saveProduct()">APLICAR AL INVENTARIO</button>
-        </div>
-    </div>
-
+    <!-- NOTIFICACIÓN DE ÉXITO -->
     <div id="toast-success">¡CAMBIOS GUARDADOS CON ÉXITO! ✓</div>
 
     <!-- SCRIPT DE MOTOR LÓGICO -->
@@ -213,37 +347,41 @@
         let clickTimer;
         const logoTrigger = document.getElementById('logo-trigger');
         const adminPanel = document.getElementById('admin-panel');
-        const header = document.getElementById('main-header');
 
         function toggleAdminMode(forceState) {
             if (forceState) {
                 adminPanel.classList.add('active');
                 document.body.classList.add('admin-mode');
+                // Asegurar que las tarjetas ocultas se muestren como flex en modo admin
+                document.querySelectorAll('.add-product-card').forEach(el => el.style.display = 'flex');
             } else {
                 adminPanel.classList.remove('active');
                 document.body.classList.remove('admin-mode');
+                document.querySelectorAll('.add-product-card').forEach(el => el.style.display = 'none');
             }
         }
 
         logoTrigger.addEventListener('click', () => {
             clickCount++;
             clearTimeout(clickTimer);
-            if (clickCount === 5) { toggleAdminMode(true); clickCount = 0; } 
-            else { clickTimer = setTimeout(() => { clickCount = 0; }, 2000); }
+            if (clickCount === 5) {
+                toggleAdminMode(true);
+                clickCount = 0; 
+            } else {
+                clickTimer = setTimeout(() => { clickCount = 0; }, 2000); 
+            }
         });
 
-        // --- 2. CONTROLES EN VIVO (LOGO Y BARRA) ---
-        document.getElementById('edit-logo-size').addEventListener('input', e => {
+        // --- 2. CONTROL EN VIVO DE LOGO ---
+        document.getElementById('edit-logo-size').addEventListener('input', function(e) {
             logoTrigger.style.height = e.target.value + 'px';
         });
-        document.getElementById('edit-header-pad').addEventListener('input', e => {
-            header.style.padding = `${e.target.value}px 40px`;
-        });
-        document.getElementById('edit-logo-file').addEventListener('change', e => {
+
+        document.getElementById('edit-logo-file').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = event => {
+                reader.onload = function(event) {
                     const base64 = event.target.result;
                     logoTrigger.src = base64;
                     logoTrigger.dataset.customLogo = base64; 
@@ -252,74 +390,13 @@
             }
         });
 
-        // --- 3. LÓGICA DEL MODAL DE PRODUCTO ---
-        const productModal = document.getElementById('product-modal');
-        let currentEditingCard = null;
-
-        function openProductModal(actionContext, cardElement = null) {
-            document.getElementById('modal-title-text').innerText = cardElement ? "EDITAR PRODUCTO" : `NUEVO PRODUCTO: ${actionContext.toUpperCase()}`;
-            currentEditingCard = cardElement;
-            
-            // Limpiar Modal
-            document.getElementById('modal-prod-title').value = '';
-            document.getElementById('modal-prod-price').value = '';
-            document.querySelectorAll('.size-check').forEach(cb => cb.checked = false);
-
-            // Si es edición, chupar los datos de la tarjeta
-            if (cardElement) {
-                document.getElementById('modal-prod-title').value = cardElement.querySelector('.card-title').innerText;
-                document.getElementById('modal-prod-price').value = cardElement.querySelector('.card-price-tag').getAttribute('data-raw-price') || '';
-                
-                const sizesText = cardElement.querySelector('.card-sizes').innerText;
-                document.querySelectorAll('.size-check').forEach(cb => {
-                    if (sizesText.includes(cb.value)) cb.checked = true;
-                });
-            }
-            productModal.classList.add('active');
-        }
-
-        function closeProductModal() { productModal.classList.remove('active'); }
-
-        function saveProduct() {
-            const title = document.getElementById('modal-prod-title').value || 'Sin Título';
-            const price = parseFloat(document.getElementById('modal-prod-price').value || 0);
-            const formattedPrice = `$ ${price.toLocaleString('es-UY', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            
-            const sizes = Array.from(document.querySelectorAll('.size-check:checked')).map(cb => cb.value).join(', ');
-            const sizeString = sizes ? `Talles: ${sizes}` : 'Consultar disponibilidad';
-
-            if (currentEditingCard) {
-                // Actualizar tarjeta existente
-                currentEditingCard.querySelector('.card-title').innerText = title;
-                currentEditingCard.querySelector('.card-price-tag').innerText = formattedPrice;
-                currentEditingCard.querySelector('.card-price-tag').setAttribute('data-raw-price', price);
-                currentEditingCard.querySelector('.card-sizes').innerText = sizeString;
-            } else {
-                // Crear nueva tarjeta (Fase 4 - Persistencia de DOM pendiente, por ahora inyecta en vivo)
-                const newCardHTML = `
-                    <div class="card-mini">
-                        <button class="edit-card-btn admin-only" onclick="openProductModal('Editar', this)">Editar</button>
-                        <div class="card-img-container">
-                            <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=400" alt="Nuevo">
-                            <div class="card-price-tag" data-raw-price="${price}">${formattedPrice}</div>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title">${title}</h3>
-                            <p class="card-sizes">${sizeString}</p>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('inventory-track').insertAdjacentHTML('beforeend', newCardHTML);
-            }
-            closeProductModal();
-        }
-
-        // --- 4. GUARDADO MAESTRO ---
+        // --- 3. BOTÓN MAESTRO: GUARDAR EN LOCALSTORAGE ---
         function saveAllSettings() {
             const settings = {
                 fubBar: document.getElementById('edit-fub-bar').value,
+                col1Title: document.getElementById('edit-col1-title').value,
+                wpNum: document.getElementById('edit-wp-num').value,
                 logoSize: document.getElementById('edit-logo-size').value,
-                headerPad: document.getElementById('edit-header-pad').value,
                 logoSrc: logoTrigger.dataset.customLogo || logoTrigger.src
             };
             localStorage.setItem('phenom_site_settings', JSON.stringify(settings));
@@ -330,18 +407,23 @@
             setTimeout(() => { toast.style.display = 'none'; }, 3000);
         }
 
+        // --- 4. INYECCIÓN AL FRONTEND ---
         function applySettings(settings) {
             if(settings.fubBar) { 
                 document.getElementById('fub-bar').innerText = settings.fubBar; 
                 document.getElementById('edit-fub-bar').value = settings.fubBar;
             }
+            if(settings.col1Title) { 
+                document.getElementById('text-col1-title').innerText = settings.col1Title; 
+                document.getElementById('edit-col1-title').value = settings.col1Title;
+            }
+            if(settings.wpNum) {
+                document.querySelector('.wp-float').href = 'https://wa.me/' + settings.wpNum;
+                document.getElementById('edit-wp-num').value = settings.wpNum;
+            }
             if(settings.logoSize) {
                 logoTrigger.style.height = settings.logoSize + 'px';
                 document.getElementById('edit-logo-size').value = settings.logoSize;
-            }
-            if(settings.headerPad) {
-                header.style.padding = `${settings.headerPad}px 40px`;
-                document.getElementById('edit-header-pad').value = settings.headerPad;
             }
             if(settings.logoSrc && settings.logoSrc !== window.location.href) {
                 logoTrigger.src = settings.logoSrc;
@@ -349,10 +431,16 @@
             }
         }
 
+        // --- 5. CARGA AUTOMÁTICA AL ABRIR LA PÁGINA ---
         window.onload = () => {
             const saved = localStorage.getItem('phenom_site_settings');
-            if (saved) applySettings(JSON.parse(saved));
-            else document.getElementById('edit-fub-bar').value = document.getElementById('fub-bar').innerText;
+            if (saved) {
+                applySettings(JSON.parse(saved));
+            } else {
+                document.getElementById('edit-fub-bar').value = document.getElementById('fub-bar').innerText;
+                document.getElementById('edit-col1-title').value = document.getElementById('text-col1-title').innerText;
+                document.getElementById('edit-wp-num').value = "59893418239";
+            }
         };
     </script>
 </body>
