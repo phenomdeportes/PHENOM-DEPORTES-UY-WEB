@@ -286,6 +286,75 @@
             }
         }
 
+        /* --- BARRA NEWSLETTER --- */
+        .newsletter-bar {
+            background-color: #ede734;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .newsletter-bar h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #000;
+        }
+        .btn-register {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 30px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-register:hover {
+            background-color: #333;
+        }
+
+        /* --- FOOTER PRINCIPAL --- */
+        .footer {
+            background-color: #fff;
+            padding: 60px 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) 0.5fr; /* 5 columnas */
+            gap: 30px;
+            color: #000;
+            border-top: 1px solid #eaeaea;
+        }
+        .footer-col h3 {
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .footer-col a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .footer-col a:hover {
+            text-decoration: underline;
+            color: #000;
+        }
+        .ssl-badge {
+            margin-top: 5px;
+            width: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .footer { grid-template-columns: repeat(2, 1fr); }
+            .newsletter-bar { flex-direction: column; text-align: center; }
+        }
+
         /* --- WHATSAPP FLOTANTE --- */
         .wp-float {
             position: fixed;
@@ -439,6 +508,55 @@
             <p id="text-info-desc-2">Phenom diseña equipamiento para atletas de todo tipo. Creadores que disfrutan desafiar las convenciones y romper las normas del combate. Confeccionamos los guantes y protectores que visten a los campeones en preparación para su próxima pelea. Para que no pierdan la concentración. Diseñamos con un objetivo en mente: máxima protección y durabilidad extrema para deportes de alto impacto. Innovamos en cada costura y ponemos a prueba nuevas tecnologías, desde nuestras onzas precisas hasta el equipamiento de recuperación. A través de nuestras colecciones, eliminamos las barreras entre el diseño de vanguardia y el mejor rendimiento en el ring.</p>
         </div>
     </section>
+
+    <!-- BARRA NEWSLETTER -->
+    <section class="newsletter-bar">
+        <h2 id="text-news-title">SUSCRÍBETE AL NEWSLETTER</h2>
+        <a href="#" class="btn-register" id="text-news-btn">REGÍSTRATE GRATIS →</a>
+    </section>
+
+    <!-- FOOTER PRINCIPAL -->
+    <footer class="footer">
+        <div class="footer-col">
+            <h3>PRODUCTOS</h3>
+            <a href="#">Guantes de Boxeo</a>
+            <a href="#">Tibiales y Cabezales</a>
+            <a href="#">Vendas y Bucales</a>
+            <a href="#">Tinas de Recuperación</a>
+        </div>
+        <div class="footer-col">
+            <h3>DEPORTES</h3>
+            <a href="#">Boxeo</a>
+            <a href="#">Kickboxing</a>
+            <a href="#">Muay Thai</a>
+            <a href="#">Fitness</a>
+            
+            <h3 style="margin-top: 30px;">COLECCIONES</h3>
+            <a href="#">Phenom Elite</a>
+            <a href="#">Phenom Pro</a>
+            <a href="#">Sparring Series</a>
+        </div>
+        <div class="footer-col">
+            <h3>ASISTENCIA</h3>
+            <a href="#">Contacto</a>
+            <a href="#">Preguntas Frecuentes</a>
+            <a href="#">Cambios y Devoluciones</a>
+            <a href="#">Guía de Tallas (Onzas)</a>
+            <a href="#">Políticas del Sitio Web</a>
+        </div>
+        <div class="footer-col">
+            <h3>INFORMACIÓN DE LA EMPRESA</h3>
+            <a href="#">Trabaja con Nosotros</a>
+            <a href="#">Información Corporativa</a>
+            
+            <h3 style="margin-top: 30px;">TIENDAS</h3>
+            <a href="#">Puntos de Retiro (Óptica)</a>
+        </div>
+        <div class="footer-col">
+            <!-- Sello SSL -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/SSL_Secured.svg/120px-SSL_Secured.svg.png" alt="Sitio Seguro SSL" class="ssl-badge">
+        </div>
+    </footer>
 
     <!-- WHATSAPP FLOTANTE -->
     <a href="https://wa.me/59899659481" class="wp-float" target="_blank">
