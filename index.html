@@ -253,6 +253,39 @@
             color: #767677;
         }
 
+        /* --- SECCIÓN INFO MARCA (2 COLUMNAS) --- */
+        .info-section {
+            background-color: #f4f4ec;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            color: #000;
+        }
+
+        .info-column h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        .info-column p {
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #111;
+        }
+
+        @media (max-width: 768px) {
+            .info-section {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+        }
+
         /* --- WHATSAPP FLOTANTE --- */
         .wp-float {
             position: fixed;
@@ -359,10 +392,10 @@
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
                     <img src="https://images.unsplash.com/photo-1517649763962-0c6232660d02?q=80&w=400" alt="Guante Elite">
-                    <div class="card-price-tag">$ 2.137,50</div>
+                    <div class="card-price-tag">$ 2.070,00</div>
                 </div>
                 <div class="card-info">
-                    <h3 class="card-title">Guantes Phenom Elite Blanco c/Dorado 16oz</h3>
+                    <h3 class="card-title">Guantes Phenom Elite Azul 16oz</h3>
                     <p class="card-category">Unisex</p>
                 </div>
             </div>
@@ -372,10 +405,10 @@
                 <div class="card-img-container">
                     <span class="heart-icon">♡</span>
                     <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400" alt="Cabezal">
-                    <div class="card-price-tag">$ 2.449,88</div>
+                    <div class="card-price-tag">$ 2.350,00</div>
                 </div>
                 <div class="card-info">
-                    <h3 class="card-title">Cabezal Boxeo Phenom Sparring (Negro)</h3>
+                    <h3 class="card-title">Tibial Boxeo Phenom Sparring M</h3>
                     <p class="card-category">Protección</p>
                 </div>
             </div>
@@ -395,8 +428,20 @@
         </div>
     </section>
 
+    <!-- SECCIÓN INFO BOXEO (2 COLUMNAS) -->
+    <section class="info-section">
+        <div class="info-column">
+            <h2 id="text-info-title-1">HISTORIA, COMBATE Y EQUIPAMIENTO PHENOM</h2>
+            <p id="text-info-desc-1">El deporte nos mantiene alerta. Nos une y nos forja. A través del boxeo y los deportes de combate podemos cambiar vidas, inspirándote a subir al ring y superar tu mejor marca personal. Ofrecemos artículos deportivos con las últimas tecnologías para absorber el impacto y mejorar tu rendimiento en cada round. Phenom es el hogar del peleador amateur, del atleta profesional y del entusiasta del fitness que deja todo en el saco. Nuestra ropa y equipamiento te mantienen concentrado antes de que suene la campana. En el sparring, en la competencia y en la recuperación. Estamos aquí para apoyar a los verdaderos peleadores.</p>
+        </div>
+        <div class="info-column">
+            <h2 id="text-info-title-2">TU TIENDA DE DEPORTES DE COMBATE PARA CUALQUIER DESAFÍO</h2>
+            <p id="text-info-desc-2">Phenom diseña equipamiento para atletas de todo tipo. Creadores que disfrutan desafiar las convenciones y romper las normas del combate. Confeccionamos los guantes y protectores que visten a los campeones en preparación para su próxima pelea. Para que no pierdan la concentración. Diseñamos con un objetivo en mente: máxima protección y durabilidad extrema para deportes de alto impacto. Innovamos en cada costura y ponemos a prueba nuevas tecnologías, desde nuestras onzas precisas hasta el equipamiento de recuperación. A través de nuestras colecciones, eliminamos las barreras entre el diseño de vanguardia y el mejor rendimiento en el ring.</p>
+        </div>
+    </section>
+
     <!-- WHATSAPP FLOTANTE -->
-    <a href="https://wa.me/59800000000" class="wp-float" target="_blank">
+    <a href="https://wa.me/59899659481" class="wp-float" target="_blank">
         ✆
     </a>
 
