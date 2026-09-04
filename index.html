@@ -78,13 +78,14 @@
             text-transform: uppercase;
         }
 
-        /* TARJETA NUEVO PRODUCTO */
+        /* TARJETA NUEVO PRODUCTO (OCULTA POR DEFECTO FUERA DE MODO ADMIN) */
         .add-product-card {
             min-width: 280px; max-width: 280px; flex-shrink: 0;
             background: #f9f9f9; border: 2px dashed #000; cursor: pointer;
             display: none; justify-content: center; align-items: center;
             height: 355px; transition: background 0.3s;
         }
+        body.admin-mode .add-product-card { display: flex; }
         .add-product-card:hover { background: #eaeaea; }
         .add-product-card span { font-size: 16px; font-weight: 900; color: #000; }
 
@@ -297,8 +298,8 @@
                 </div>
             </div>
 
-            <!-- TARJETA CREAR PRODUCTO -->
-            <div class="add-product-card admin-only" onclick="alert('Módulo de creación de producto')">
+            <!-- TARJETA CREAR PRODUCTO (SOLO VISIBLE EN MODO ADMIN) -->
+            <div class="add-product-card" onclick="alert('Módulo de creación de producto')">
                 <span>+ NUEVO PRODUCTO</span>
             </div>
 
@@ -534,7 +535,7 @@
         </div>
     </div>
 
-    <!-- MODAL INTERACTIVO DE REGISTRO NEWSLETTER (NOMBRE Y WHATSAPP) -->
+    <!-- MODAL INTERACTIVO DE REGISTRO NEWSLETTER (NOMBRE, WHATSAPP Y/O MAIL) -->
     <div class="simple-modal-overlay" id="newsletter-form-modal">
         <div class="simple-modal-content">
             <button class="simple-modal-close" onclick="closeNewsletterForm()">X</button>
@@ -573,11 +574,9 @@
             if (forceState) {
                 adminPanel.classList.add('active');
                 document.body.classList.add('admin-mode');
-                document.querySelectorAll('.add-product-card').forEach(el => el.style.display = 'flex');
             } else {
                 adminPanel.classList.remove('active');
                 document.body.classList.remove('admin-mode');
-                document.querySelectorAll('.add-product-card').forEach(el => el.style.display = 'none');
             }
         }
 
@@ -658,10 +657,10 @@
             if(newPrice) currentEditingCard.querySelector('.card-price-tag').innerText = newPrice;
             
             closeEditModal();
-            saveAllSettings(); // Guarda automáticamente todo incluyendo el carrusel
+            saveAllSettings(); 
         }
 
-        // --- 4. LÓGICA MODAL DE HERO (3 COLUMNAS + FUENTES) ---
+        // --- 4. LÓGICA MODAL DE HERO (3 COLUMNAS + FUENTES + IMAGEN PERSISTIDA) ---
         let currentHeroColNum = null;
         const heroModal = document.getElementById('edit-hero-modal');
         let tempHeroImgBase64 = null;
@@ -815,7 +814,7 @@
             saveAllSettings();
         }
 
-        // --- 8. SISTEMA DE PERSISTENCIA MAESTRA (LOCALSTORAGE INCLUYENDO CARRUSEL) ---
+        // --- 8. SISTEMA DE PERSISTENCIA MAESTRA (LOCALSTORAGE COMPLETO) ---
         function saveAllSettings() {
             const settings = {
                 fubBar: document.getElementById('fub-bar').innerText,
@@ -824,7 +823,7 @@
                 headerPad: mainHeader.style.padding,
                 logoSrc: logoTrigger.dataset.customLogo || logoTrigger.src,
                 
-                // Hero Data
+                // Hero Data (Textos, Fuentes y Fondos en Base64)
                 hero1Title: document.getElementById('text-col1-title').innerText,
                 hero1Sub: document.getElementById('text-col1-sub').innerText,
                 hero1Bg: document.getElementById('hero-col-1').style.backgroundImage,
@@ -856,7 +855,7 @@
                 footer3: document.getElementById('footer-col-3').innerHTML,
                 footer4: document.getElementById('footer-col-4').innerHTML,
 
-                // Carrusel HTML Completo (Guarda imágenes, títulos y precios editados)
+                // Carrusel
                 carouselHtml: document.getElementById('carousel-track-container').innerHTML
             };
 
@@ -875,7 +874,10 @@
             const saved = localStorage.getItem('phenom_persistent_data');
             if (saved) {
                 const data = JSON.parse(saved);
-                if(data.fubBar) document.getElementById('fub-bar').innerText = data.fubBar;
+                if(data.fubBar) {
+                    document.getElementById('fub-bar').innerText = data.fubBar;
+                    document.getElementById('edit-fub-bar').value = data.fubBar;
+                }
                 if(data.wpNum) document.querySelector('.wp-float').href = 'https://wa.me/' + data.wpNum;
                 if(data.logoSize) logoTrigger.style.height = data.logoSize;
                 if(data.headerPad) mainHeader.style.padding = data.headerPad;
@@ -915,6 +917,8 @@
 
                 // Carrusel
                 if(data.carouselHtml) document.getElementById('carousel-track-container').innerHTML = data.carouselHtml;
+            } else {
+                document.getElementById('edit-fub-bar').value = document.getElementById('fub-bar').innerText;
             }
         };
     </script>
